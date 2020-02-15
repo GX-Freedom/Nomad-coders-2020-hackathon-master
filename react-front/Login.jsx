@@ -11,6 +11,8 @@ function Login(){
     <input type="password" name="password" placeholder="패스워드"></input>
     <input type="submit" value="로그인" ></input>
     </form>
+
+
     );
 }
 
