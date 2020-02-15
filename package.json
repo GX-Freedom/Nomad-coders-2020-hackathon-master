@@ -36,7 +36,7 @@
     "@babel/core": "^7.8.4"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node init.js"
+    "start": "nodemon --exec babel-node init.js react-scripts start"
   },
   "author": "Jiwon & KimJinYoung",
   "license": "ISC",
