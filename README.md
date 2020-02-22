@@ -1,3 +1,2 @@
-# Nomad-coders-2020-hackathon-master
+# Nomad-coders 2020 hackathon
  
-wow

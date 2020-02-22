@@ -12,6 +12,7 @@ export const postAddBook = async(req, res) => {
     const {
         body: {bookName,bookDescription,author}, file:{path}
     } = req;
+    console.log(req.body,req.file);
     try{
     const newBook = await Book.create({
         title:bookName,
@@ -87,5 +88,33 @@ export const postReview = async(req, res) => {
     })
     book.review.push(review.id);
     book.save();
+    user.reviews.push(review.id)
+    user.save();
     res.redirect(`/${routes.bookDetail(id)}`);
+}
+
+export const editBook = async(req, res) => {
+    const { 
+    params : {id},
+    body: {title, description, author}
+    } = req;
+    try{
+    const book = await Book.findByIdAndUpdate({_id:id}, {title, description, author})
+    console.log(book);
+    res.redirect(`/${routes.bookDetail(id)}`);
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const deleteBook = async(req, res) => {
+    const {
+        params: {id}
+    } = req;
+    try {
+        await Book.findByIdAndDelete({_id:id})
+        res.redirect(routes.home);
+    }catch(error){
+        console.log(error)
+    }
 }

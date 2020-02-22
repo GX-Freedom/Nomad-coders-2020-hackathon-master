@@ -61,9 +61,9 @@ export const logout = (req, res) => {
 
 export const profile = async(req, res) => {
     const {
-        params: {id}
+        user: {id}
     } = req;
-    const currentUser = await User.findById(id).populate("uploadedBooks");
+    const currentUser = await User.findById(id).populate("uploadedBooks").populate("reviews");
     res.render("profile", {currentUser})
 }
 
@@ -77,6 +77,33 @@ export const search = async(req, res) => {
     
     let results = miniSearch.search(req.body.search)
     
-    console.log(results)
+    
     res.render("search", {results})
+}
+
+export const editUser = (req, res) => {
+    res.render("edit-profile")
+}
+
+export const postEditUser = async(req, res) => {
+    const {
+        user: {id},
+        body: {username, password, password2, profilePhoto}
+    } = req;
+
+    if(password == password2){
+        try{
+            const newUser = await User.findByIdAndUpdate({_id:id},
+                {username, profilePhoto}
+                );
+                
+                console.log(newUser)
+        }catch(error){
+            console.log(error)
+            res.redirect(routes.home);
+        }
+    }else{
+        res.send("비밀번호가 일치하지 않습니다.")
+    }
+    
 }

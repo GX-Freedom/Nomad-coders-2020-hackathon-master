@@ -1,13 +1,18 @@
 const HOME = "/";
 const BOOK_DETAIL = "/book-detail/:id";
 const ADD_BOOK = "/add-book";
+const EDIT_BOOK = "/edit-book/:id";
+const DELETE_BOOK = "/delete-book/:id";
 const MY_BOOK_LIST = "/book-list/:id";
 const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
+const EDIT_USER ="/edit-user/:id";
 
 const GOOGLE_AUTH = "/auth/google";
 const GOOGLE_AUTH_CALLBACK = "/auth/google/callback";
+const NAVER_AUTH = "/auth/naver";
+const NAVER_AUTH_CALLBACK = "/auth/naver/callback"
 
 const PROFILE = "/user/:id";
 
@@ -36,10 +41,26 @@ const routes = {
             return MY_BOOK_LIST
         }
     },
+    editBook: (id) => {
+        if(id){
+            return `/edit-book/${id}`
+        }else{
+            return EDIT_BOOK
+        }
+    },
+    deleteBook: (id) => {
+        if(id){
+            return `/delete-book/${id}`
+        }else{
+            return DELETE_BOOK
+        }
+    },
     profile: PROFILE,
 
     googleAuth: GOOGLE_AUTH,
     googleAuthCallback: GOOGLE_AUTH_CALLBACK,
+    naverAuth: NAVER_AUTH,
+    naverAuthCallback: NAVER_AUTH_CALLBACK,
 
     profile: (id) => {
         if(id){
@@ -55,7 +76,14 @@ const routes = {
             return POSTREVIEW
         }
     },
-    search: SEARCH
+    search: SEARCH,
+    editUser: (id) => {
+        if(id){
+            return `/edit-user/${id}`
+        }else{
+            return EDIT_USER
+        }
+    }
     
 }
 

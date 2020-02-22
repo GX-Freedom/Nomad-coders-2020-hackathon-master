@@ -1,8 +1,7 @@
 import React from "react";
 import routes from "../routes";
 import user from "../model/user";
-
-//const Home = pug.complieFile("Home.pug");
+import Header from "./Header";
 
 // const ul = document.createElement("ul");
 // const li = document.createElement("li");
@@ -21,7 +20,10 @@ function container(){
 
     return (
         <div className="container">
-            
+            <ul>
+                <li className="not_yet">booklist</li>
+                <li className="not_yet">booklist</li>
+            </ul>
         </div>
 
     );
@@ -36,10 +38,6 @@ function Search(){
 
 }
 
-class index extends React.Component{
-
-    render(){ return Header();
-    }
+export default function index(){
+    return container;
 }
-
- export default index;
