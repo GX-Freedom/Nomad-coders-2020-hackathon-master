@@ -2,20 +2,24 @@ import React from "react";
 import routes from "../routes";
 import user from "../model/user";
 import Header from "./Header";
+import Container from "./Container";
+
+
+//const Home = pug.complieFile("Home.pug");
 
 // const ul = document.createElement("ul");
 // const li = document.createElement("li");
 
+// const divs = document.querySelector(".container");
+
+function container() {
 
 
-function container(){
-
-    ul.appendChild(li);
-    ul.className = "booklist";
-    li.className = "booklist_more";
-    li.innerHTML="bookList";
-    const divs = document.querySelector(".container");
-    divs.appendChild(ul);
+    // ul.appendChild(li);
+    // ul.className = "booklist";
+    // li.className = "booklist_more";
+    // li.innerHTML = "bookList";
+    // divs.appendChild(ul);
 
 
     return (
@@ -24,20 +28,23 @@ function container(){
                 <li className="not_yet">booklist</li>
                 <li className="not_yet">booklist</li>
             </ul>
+            <Container />
         </div>
 
     );
 }
 
-function Search(){
-    <form>
-        <input type="text"  action={routes.search}></input>
-        <button value="button">button </button>
+class index extends React.Component {
 
-    </form>
+    render() {
+        return (
+            <div id="root">
+                <Header />
+                {container()}
+            </div>
+        );
 
+    }
 }
 
-export default function index(){
-    return container;
-}
+export default index;

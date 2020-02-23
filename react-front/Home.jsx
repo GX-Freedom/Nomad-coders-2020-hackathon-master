@@ -1,6 +1,12 @@
 import React from "react";
 import Login from "./Login";
 import Header from "./Header";
+import Join from "./Login";
+
+
+// import './index.css';
+// import * as serviceWorker from './serviceWorker';
+
 
 function Home(props){
     const style={
@@ -20,6 +26,7 @@ function Home(props){
         transformStyle:"preserve-3d",
         perspective:"1200px",
     }
+
     const img_box={
         borderRadius:"10px",
         boxShadow: `2px 5px 3px 2px rgba(0,0,0,0.75),
@@ -27,7 +34,7 @@ function Home(props){
         marginTop:"2rem",
         postion:"relative",
         transformStyle:"preserve-3d",
-        transform:"rotateY(45deg)",
+       // transform:"rotateY(45deg)",
         animation:"spin 10s linear infinite"
        
     }
@@ -65,6 +72,31 @@ function Home(props){
          
     </React.Fragment>
      );
+//const Ho = pug.compileFile("home.pug");
+
+// function Home(props) {
+
+//     //ReactDOM.render(<Join/>, document.getElementById("root"));
+//     return (
+//         console.log(props), <Index />
+//     );
+// }
 }
 
-export default Home;
+
+// class Home extends React.Component {
+
+//     render() {
+
+//         return (
+
+//             <div id="root">
+//                 <Index />
+//             </div>
+//         );
+
+//     }
+// }
+// serviceWorker.unregister();
+
+export default Home

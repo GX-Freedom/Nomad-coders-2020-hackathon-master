@@ -61,11 +61,25 @@ function Join(props) {
                         <img style={snsimg} src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" />
                     </a>
                 </div>
-
         </div>
     );
 
 }
+
+// function Join() {
+
+//     return (
+//         <div className="join_box">
+//             <form action={routes.join} method="post">
+//                 <input type="text" name="username" required={true} placeholder="email" />
+//                 <input type="text" name="email" required={true} placeholder="email" />
+//                 <input type="passwrod" name="password" required={true} placeholder="email" />
+//                 <input type="submit" value="검색" />
+//             </form>
+//         </div>
+//     );
+
+// }
 
 
 export default Join;

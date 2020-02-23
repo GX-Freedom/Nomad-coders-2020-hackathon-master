@@ -42,7 +42,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon --exec babel-node init.js"
+    "start": "nodemon --exec babel-node init.js react-scripts start"
   },
   "author": "Jiwon & KimJinYoung",
   "license": "ISC",
