@@ -26,7 +26,6 @@ function Header(props){
     }
 
     return(
-      
         <div className="header">
           <Title/>
           <div className="flex_box"style={pstyle} >

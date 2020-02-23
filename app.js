@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import expressReactViews from "express-react-views";
 
+
 const app = express();
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,6 +22,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+app.use(express.static("./react-front/style/" + '/public'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(localsMiddleware);
