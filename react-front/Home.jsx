@@ -3,6 +3,9 @@ import Login from "./Login";
 import Header from "./Header";
 import Join from "./Login";
 import MyBookList from "./MyBookList";
+import Recommend from "./Recommend";
+
+
 
 // import './index.css';
 // import * as serviceWorker from './serviceWorker';
@@ -48,7 +51,14 @@ function Home(props){
     }
 
 
-
+    const reco={
+        display:"grid",
+        gridColumnStart:"3",
+        gridColumnEnd:"4",
+    }
+    const tet={
+        margin:"0",
+    }
     const bookList =
 
         props.books.map(book => {
@@ -65,14 +75,17 @@ function Home(props){
                     </div>
                     </a>
                     </div>
+                    <Recommend style={reco}/>
                 </div>
+                
+
                 )
             })
             
             //ReactDOM.render(<Join/>, document.getElementById("root"));
     return  ( 
                 
-    <React.Fragment>
+    <React.Fragment style={tet}>
         {Header(props)}     
          {bookList}
          

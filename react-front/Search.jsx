@@ -1,5 +1,28 @@
 import React from "react";
 
+
+const style={
+    display:"inline-block",
+    alignItems:"center",
+    margin:"1rem",
+    padding:"0",
+
+
+}
+const book_info={
+    display:"felx",
+    flexDirectionL:"column",
+    alignItems:"center",
+    justifyContent:"center",
+    padding:"0",
+    margin:"0",
+
+}
+const imgSize={
+    width:"30vh",
+}
+
+
 class search extends React.Component{
     render(){
         const results = this.props.results
@@ -7,18 +30,22 @@ class search extends React.Component{
         const resultScreen = results.map( books => {
             return (
              <React.Fragment>
-            <img src={books.imageUrl}/>
-            <h1>{books.title}</h1>                                                                                                                                                                                                                                                                                                                                       
-            <h3>{books.author}</h3>
+            <div className="search_list" style={style}>
+                <ul className="book_info" style={book_info}>
+                    <img src={books.imageUrl} style={imgSize}/>
+                    <h1>{books.title}</h1>                                                                                                                                                                                                                                                                                                                                       
+                    <h3>{books.author}</h3>
+                </ul>
+            </div>
             </React.Fragment>   
             )
         })
         
         return (
-        console.log(resultScreen),
+        // console.log(resultScreen),
         <div>
             <h1>{results[0].terms[0]} 검색결과 : </h1>
-            {resultScreen}
+            {resultScreen} 
         </div>
         
         );

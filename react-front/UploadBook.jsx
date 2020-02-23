@@ -7,6 +7,7 @@ const inputstyle={
     display:"flex",
     flexDirection:"coulumn",
     color:"red",
+    cursor: "pointer",
 
 }
 const griarea={

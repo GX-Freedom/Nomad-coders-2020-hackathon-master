@@ -15,6 +15,8 @@ function Join(props) {
         flexDirection:"column",
         width:"15rem",
         textAlign:"center",
+        cursor: "pointer",
+
     }
 
     const centerStyle={     

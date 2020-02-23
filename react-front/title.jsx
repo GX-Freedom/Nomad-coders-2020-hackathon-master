@@ -4,7 +4,7 @@ export default function title(props){
     
     const style={
         display:"flex",
-        width:"114vh",
+        width:"30%",
         height:"15vh",
         position:"relative",
         marginTop:"-1.2vh",

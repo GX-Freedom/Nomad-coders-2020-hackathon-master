@@ -32,6 +32,9 @@ const ulstyle={
     backgroundRepeat: "no-repeat",
     boxShadow: `3px 3px 2px 1px rgba(0,0,0,0.75),
     -2px -2px 5px 1px rgba(0,0,0,0.75)`,
+    overflow: "auto",
+    overflowY: "visible",
+
 }
 const ma={
     width:"100%",
@@ -42,14 +45,19 @@ const books={
     flexDirection:"column",
     alignItems:"center",
     justifyContent:"end",
+
 }
 const bookSize ={
-    width:"20%",
+    cursor: "pointer",
+    margin:"1rem",
+    width:"25vh",
 }
 const shelf={
     display:"block",
     width:"98%",
     marginTop:"-15vh",
+    overflow: "scroll",
+
 
 }
 export default function MyBookList(props){
@@ -68,18 +76,52 @@ export default function MyBookList(props){
                 {/* <img src={books.imgUrl} className=""book_img/> */}
                 </li>
 
+
+                {/* test ↓*/}
                 <li style={books}>
                 <img src="../images/wood.jpg" style={bookSize} alt=""/>
                 <span className="book_name">
                     book_name
                 </span>
                 </li>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+                {/* test ↑ */}
 
+                
             </ul>
-            
             <div>
                 <img style={shelf} src="../images/shelf.png" alt=""/>
             </div>
+
             <ul className="list" style={ulstyle}>
                 <li style={books}>
                 <img src="../images/wood.jpg" style={bookSize} alt=""/>
@@ -97,10 +139,11 @@ export default function MyBookList(props){
                 </li>
 
             </ul>
-            
             <div>
                 <img style={shelf} src="../images/shelf.png" alt=""/>
             </div>
+
+
             <div className="list"></div>
             <div className="list"></div>
             <div className="list"></div>

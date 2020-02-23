@@ -23,6 +23,7 @@ function Header(props){
       margin:"7px",
       textDecoration: "none",
       color:"blue",
+      cursor: "pointer",
 
     }
 
