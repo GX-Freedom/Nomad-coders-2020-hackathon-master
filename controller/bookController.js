@@ -118,3 +118,7 @@ export const deleteBook = async(req, res) => {
         console.log(error)
     }
 }
+
+export const myBook= async(req,res)=>{
+    res.render("MyBookList");
+}

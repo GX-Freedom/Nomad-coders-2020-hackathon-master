@@ -45,6 +45,7 @@ function Header(props){
         <a href={props.routes.logout}style={amrgin}> 로그아웃</a>
         <a href={props.routes.join}style={amrgin}>가입</a>
         <a href={props.routes.addBook}style={amrgin}>새로운 책 등록</a>
+        <a href={props.routes.mybook}style={amrgin}>내 서재</a>
         </div>
       </div>    
     );

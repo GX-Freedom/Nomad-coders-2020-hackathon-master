@@ -1,6 +1,6 @@
 import express from "express";
 import routes from "../routes";
-import { getAddBook, postAddBook, myBookList, postMyBookList, postReview, editBook, deleteBook } from "../controller/bookController";
+import { getAddBook, postAddBook, myBookList, postMyBookList, postReview, editBook, deleteBook, myBook } from "../controller/bookController";
 import bookImageUpload from "../middleware";
 import { profile, search, editUser, postEditUser } from "../controller/userController";
 
@@ -13,6 +13,8 @@ userRouter.get(routes.profile(), profile);
 
 userRouter.get(routes.myBookList(), myBookList);
 userRouter.post(routes.myBookList(), postMyBookList);
+
+userRouter.get(routes.mybook, myBook);
 
 userRouter.post(routes.postReview(), postReview);
 

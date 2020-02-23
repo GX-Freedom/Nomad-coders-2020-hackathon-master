@@ -20,6 +20,8 @@ const POSTREVIEW = "/book-review/:id";
 
 const SEARCH = "/book-search";
 
+const MYBOOKLIST ="/mybook";
+
 const routes = {
     home: HOME,
     bookDetail: function(id) {
@@ -32,7 +34,7 @@ const routes = {
     join: JOIN,
     login: LOGIN,
     logout: LOGOUT,
-
+    mybook:MYBOOKLIST,
     addBook: ADD_BOOK,
     myBookList: (id) => {
         if(id){
