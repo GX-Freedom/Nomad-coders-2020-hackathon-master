@@ -4,13 +4,15 @@ export default function title(props){
     
     const style={
         display:"flex",
-        width:"50vh",
+        width:"114vh",
         height:"15vh",
-        margin:"0.7rem",
-      }
+        position:"relative",
+        marginTop:"-1.2vh",
+        justifyContent:"center",
+    }
 
 return     (<a href="/">
-    <img src="images\Book-Worm.jpg" alt="" style={style} />
+    <img src="../images/BooLu.png" alt="" style={style} />
     </a>);
 
 }

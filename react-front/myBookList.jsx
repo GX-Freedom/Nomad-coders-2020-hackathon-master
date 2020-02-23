@@ -7,7 +7,8 @@ const main_box={
     width:"100%",
     height:"100vh",
     display:"flex",
-    justifyContent:"center",
+    flexDirection:"column",
+    justifyContent:"start",
     alignItems:"center",
     // backgroundImage: "url(../images/wood.jpg)",
     backgroundImage: "url(https://cdn.pixabay.com/photo/2015/06/02/12/59/narrative-794978_1280.jpg)",
@@ -19,42 +20,91 @@ const main_box={
 }
 
 const ulstyle={
-    width:"30%",
-    height:"20%",
+    width:"80%",
+    height:"100%",
     display:"flex",
     margin:"1rem",
     justifyContent:"center",
     alignItems:"center",
+    textAling:"center",
     listStyle:"none",
     zIndex:"1",
+    backgroundRepeat: "no-repeat",
+    boxShadow: `3px 3px 2px 1px rgba(0,0,0,0.75),
+    -2px -2px 5px 1px rgba(0,0,0,0.75)`,
 }
 const ma={
-    margin:"0",
+    width:"100%",
     zIndex:"2",
-    left:"10px",
-    marginTop:"-30px",
-
+}
+const books={
     display:"flex",
-
+    flexDirection:"column",
+    alignItems:"center",
+    justifyContent:"end",
+}
+const bookSize ={
+    width:"20%",
+}
+const shelf={
+    display:"block",
+    width:"98%",
+    marginTop:"-15vh",
 
 }
 export default function MyBookList(props){
 
         return(
-            <div className="" style={ma}>
             <div className="book_list" style={main_box}>
-            <Title style={ma}/>
+            <div style={ma}>
+            <Title />
+            </div>
             <ul className="list" style={ulstyle}>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
                 <span className="book_name">
                     book_name
                 </span>
                 {/* <img src={books.imgUrl} className=""book_img/> */}
+                </li>
+
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+
             </ul>
+            
+            <div>
+                <img style={shelf} src="../images/shelf.png" alt=""/>
+            </div>
+            <ul className="list" style={ulstyle}>
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                {/* <img src={books.imgUrl} className=""book_img/> */}
+                </li>
+
+                <li style={books}>
+                <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                <span className="book_name">
+                    book_name
+                </span>
+                </li>
+
+            </ul>
+            
+            <div>
+                <img style={shelf} src="../images/shelf.png" alt=""/>
+            </div>
             <div className="list"></div>
             <div className="list"></div>
             <div className="list"></div>
         </div>
-    </div>
         );
     }
     

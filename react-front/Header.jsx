@@ -22,6 +22,7 @@ function Header(props){
     const amrgin={
       margin:"7px",
       textDecoration: "none",
+      color:"blue",
 
     }
 
