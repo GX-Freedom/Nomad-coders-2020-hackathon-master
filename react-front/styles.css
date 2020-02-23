@@ -2,4 +2,7 @@
 
 .booklist{
     list-style: none;
+position: relative;
+color: rgba(107, 26, 184, 0.253);
+
 }

@@ -16,9 +16,13 @@ const btn={
     backgroundColor:"red",
 }
 const center_box={
+    height:"80vh",
+
     display:"felx",
     flexDirection: "column",
     textAlign:"center",
+    backgroundColor:"rgba(107, 26, 184, 0.085)",
+
 }
 const box={
 

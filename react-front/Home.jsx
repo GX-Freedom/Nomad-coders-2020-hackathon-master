@@ -9,12 +9,16 @@ import MyBookList from "./MyBookList";
 
 
 function Home(props){
+    {MyBookList(props)}
+    console.log(props);
+
     const style={
         width:"100%",
         margin:"0",
         paddgin:"0",
         display:"grid",
         gridTemplateColumns:"repeat(3,1fr)",
+        backgroundColor:"rgba(107, 26, 184, 0.085)",
         
     }
     const grid = {
@@ -46,6 +50,7 @@ function Home(props){
 
 
     const bookList =
+
         props.books.map(book => {
             return (
                 <div className="booklist_home" style={style}>
@@ -62,11 +67,12 @@ function Home(props){
                     </div>
                 </div>
                 )
-        })
-    
-    //ReactDOM.render(<Join/>, document.getElementById("root"));
-     return  ( 
-     <React.Fragment>
+            })
+            
+            //ReactDOM.render(<Join/>, document.getElementById("root"));
+    return  ( 
+                
+    <React.Fragment>
         {Header(props)}     
          {bookList}
          

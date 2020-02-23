@@ -18,9 +18,12 @@ function Join(props) {
     }
 
     const centerStyle={     
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"center",
+        height:"100vh",
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+        backgroundColor:"rgba(107, 26, 184, 0.085)",
+
     }
     const aspan={
         display:"none",
