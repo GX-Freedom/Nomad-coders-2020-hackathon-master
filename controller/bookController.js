@@ -78,7 +78,7 @@ export const postReview = async(req, res) => {
         params: {id},
         user
     } = req;
-    console.log(reviewContent, rate, id, req.user)
+   // console.log(reviewContent, rate, id, req.user)
     const book = await Book.findById(id);
     const review = await Review.create({
         content: reviewContent,

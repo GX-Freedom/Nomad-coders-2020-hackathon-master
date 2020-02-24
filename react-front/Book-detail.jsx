@@ -1,4 +1,7 @@
 import React from "react";
+import Title from "./title";
+
+
 
 class bookDetail extends React.Component {
     render(){
@@ -44,10 +47,43 @@ class bookDetail extends React.Component {
         const postReview={
             margin:"5px",
         }
+
+        const reviewStyle={
+            boxShadow:` 0.1px 2px 0.5px 0.5px rgba(0,0,0,0.75),
+            -0.1px -0.1px 0.5px 0.5px rgba(0,0,0,0.75)`,
+            margin:"0.8rem",
+            textAlign:"center",
+            width:"60%",
+        }
+        const reimg={
+            margin:"0.7rem",
+            borderRadius:"100%",
+            width:"20%",
+        }
         //
+            
+        
+        let totalStar="";
+
+        let totalPoint=()=>{
+
+            if(this.props.totalRate)
+            {
+                
+                for(var i =0; i<this.props.totalRate; i++)
+                {
+                    totalStar += "★"; 
+                }
+            }
+        }
+        totalPoint();
+
         const book = this.props.book
         return(
-        <React.Fragment>
+            
+            <React.Fragment>
+            
+            <Title/>
         <div className="center_box" style={centerBox}>
             <img src={`/${book.imageUrl}`} style={bookimg}/>
             <h1 style={title}>{book.title}</h1>
@@ -55,6 +91,7 @@ class bookDetail extends React.Component {
             <h2>{book.totalRate}</h2>
             <h2>{book.author}</h2>
             <h3>{book.description}</h3>
+            <h3>{totalStar}</h3>
             <h3>{this.props.totalRate}점</h3>
         <form action={this.props.routes.editBook(book.id)} method="post" style={inmargin}>
             <input type="text" name="title" placeholder="수정할 이름" value={book.title} style={inputstyle}/>
@@ -77,13 +114,35 @@ class bookDetail extends React.Component {
             h3 #{item.rate}점
         h4 #{item.createdAt}*/}
         {book.review.map( (item) => {
+            
+        let star="";
+        let test=`${<i class="fas fa-star-half-alt"></i>}`;
+
+
+        const starPoint=()=>{
+
+            if(item.rate)
+            {
+                for(var i =0; i<item.rate; i++)
+                {
+                    star += "★";
+                }
+            }
+        }
+        starPoint();
+        const hours = new Date().getMinutes();
+
+        
                 return(
-                    <div style={reviewset}>
-                <img src={item.creatorPhoto} width="50vh"/>
-                <h3>{item.creator}</h3>
-                <h3>{item.content}</h3>
-                <h3>{item.rate}</h3>
+                    <div style={reviewStyle}>
+                <img style={reimg} src={item.creatorPhoto}  width="50vh"/>
+                <h3>평가자: {item.creator}</h3>
+                <h3>리뷰: {item.content}</h3>
+                <h3>{star}</h3>
+                <h3>{item.rate} 점</h3>
                 <h3>{JSON.stringify(item.createdAt)}</h3>
+                    <h3>{test}</h3>
+                <h3>{hours}</h3>
                 </div>
                 )
         } )}
