@@ -2,6 +2,13 @@ import React from "react";
 import user from "../model/user";
 
 
+const title_fuc=()=>{
+    const title = document.querySelector(".title_btn")
+    console.log("title_btn_click");
+
+    title.style.color ="red"
+}
+
 function ho() {
 
     const Home = pug.complieFile("Home.pug");

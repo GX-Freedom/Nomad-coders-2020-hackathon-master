@@ -1,5 +1,9 @@
 
+*{
+    margin:0;
+    padding:0;
 
+}
 .booklist{
     list-style: none;
 position: absolute;
@@ -8,4 +12,7 @@ flex-direction: column;
 }
 
 ul{
+
+    overflow-y: hidden;
+
 }

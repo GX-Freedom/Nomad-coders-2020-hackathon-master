@@ -79,6 +79,7 @@ class bookDetail extends React.Component {
         totalPoint();
 
         const book = this.props.book
+        console.log(book);
         return(
             
             <React.Fragment>

@@ -8,7 +8,12 @@ function Header(props){
       postion:"absolute",
       color:"red",
     }
-        
+    const headerStyle={
+      width:"100%",
+      backgroundColor:"rgba(203, 202, 204, 0.281)",
+      top:"0",
+      left:"0",
+    }
     const pstyle={
       position:"absolute",
       color:"red",
@@ -28,7 +33,7 @@ function Header(props){
     }
 
     return(
-        <div className="header">
+        <div className="header" style={headerStyle}>
           <Title/>
           <div className="flex_box"style={pstyle} >
           {/* <img src="images\Book-Worm.jpg" alt="" style={style} /> */}
@@ -49,7 +54,8 @@ function Header(props){
         <a href={props.routes.addBook}style={amrgin}>새로운 책 등록</a>
         <a href={props.routes.mybook}style={amrgin}>내 서재</a>
         </div>
-      </div>    
+      </div> 
+       
     );
 }
 

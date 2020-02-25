@@ -6,26 +6,42 @@ import styled,{css} from "styled-components";
 
 const instyle ={
     margin:"5px",
-    padding:"0"
+    padding:"0",
 }
+
 function Join(props) {
 
     const inputStyle={
         display:"flex",
         flexDirection:"column",
         width:"15rem",
+        height:"40vh",
         textAlign:"center",
-        cursor: "pointer",
-
+        justifyContent:"flex-end"
     }
+    const joingStyle={
+        cursor: "pointer",
+        margin:"5px",
+        padding:"0",
+    }
+    // const jostyle= styled.button`
+    // &:hover{
+    //     cursor: pointer;
 
+    // }
+    // `
+    
     const centerStyle={     
-        height:"100vh",
+        height:"98.7vh",
+        width:"101%",
         display:"flex",
         flexDirection:"column",
         alignItems:"center",
+        textAlign:"center",
         backgroundColor:"rgba(107, 26, 184, 0.085)",
-
+        marginTop:"-6.5px",
+        marginLeft:"-7px",
+        overflowY: "hidden",
     }
     const aspan={
         display:"none",
@@ -50,7 +66,7 @@ function Join(props) {
                 <input type="text" name="email" required={true} placeholder="이메일" style={instyle} />
                 <input type="password" name="password" required={true} placeholder="비밀번호" style={instyle} />
                 <input type="password" name="password2" required={true} placeholder="비밀번호 확인" style={instyle}/>
-                <input type="submit" value="가입"style={instyle} />
+                <input type="submit" value="가입"style={joingStyle} />
             </form>
                 <div style={astate}>
                     <a href={props.routes.googleAuth} style={astate}>
@@ -66,7 +82,9 @@ function Join(props) {
                         <img style={snsimg} src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" />
                     </a>
                 </div>
+                
         </div>
+        
     );
 
 }

@@ -10,7 +10,7 @@ const inputstyle={
     cursor: "pointer",
 
 }
-const griarea={
+const addStyle={
     display:"flex",
     justifyContent:"center",
 
@@ -27,15 +27,19 @@ const flex_box={
     boxShadow:`3px 3px 5px 0px rgba(0,0,0,0.75),
     -2.5px -2px 5px 3px rgba(0,0,0,0.75)`,
 }
+const temporaryStyle={
+    display:"block",
+    textAlign:"center",
+}
 
 class uploadBook extends React.Component{
     render(){
         return (
-            <div>
+            <div style={temporaryStyle}>
             <Title />
-            <div style={griarea} >
+            <div style={addStyle} >
         <form action={this.props.routes.addBook} method="post" enctype="multipart/form-data" style={flex_box}>
-            <input type="text" name="bookname" placeholder="책 제목" required="true" style={inputstyle}/>
+            <input type="text" name="bookName" placeholder="책 제목" required="true" style={inputstyle}/>
             <input type="textarea" name="bookDescription" placeholder="책 상세설명" style={inputstyle}/>
             <input type="text" name="author" placeholder="작가 이름" style={inputstyle}/>
             <input type="file" name="bookImage" style={inputstyle}/>

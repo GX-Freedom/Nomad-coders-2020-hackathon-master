@@ -36,7 +36,7 @@ export default function Recommend(){
     return(
 
         <div className="recommend" style={style} >
-            this is recommend
+           for you recommended
             <ul className="reco_list" style={reco_list}>
                 <li className="reco" style={reco}>
                   <a style={reco} href="" >

@@ -22,6 +22,7 @@ function Home(props){
         display:"grid",
         gridTemplateColumns:"repeat(3,1fr)",
         backgroundColor:"rgba(107, 26, 184, 0.085)",
+        //marginLeft:"-6px",
         
     }
     const grid = {
@@ -88,34 +89,15 @@ function Home(props){
     <React.Fragment style={tet}>
         {Header(props)}     
          {bookList}
-         
+         <style jsx>{`
+        html, body {
+          margin: 0;
+          padding:0;
+        }
+      `}</style>  
     </React.Fragment>
      );
-//const Ho = pug.compileFile("home.pug");
-
-// function Home(props) {
-
-//     //ReactDOM.render(<Join/>, document.getElementById("root"));
-//     return (
-//         console.log(props), <Index />
-//     );
-// }
 }
 
-
-// class Home extends React.Component {
-
-//     render() {
-
-//         return (
-
-//             <div id="root">
-//                 <Index />
-//             </div>
-//         );
-
-//     }
-// }
-// serviceWorker.unregister();
 
 export default Home

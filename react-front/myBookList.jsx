@@ -1,6 +1,19 @@
 import React from "react";
 import Title from "./title";
+import {ho} from "./ho";
 
+
+
+
+const title_fuc=()=>{
+    console.log("title_btn_click");
+    const title = document.querySelector(".title_btn")
+
+    title.style.color ="red"
+}
+const img_fuc=()=>{
+
+}
 const main_box={
     margin:"0",
     padding:"0",
@@ -33,7 +46,7 @@ const ulstyle={
     boxShadow: `3px 3px 2px 1px rgba(0,0,0,0.75),
     -2px -2px 5px 1px rgba(0,0,0,0.75)`,
     overflow: "auto",
-    overflowY: "visible",
+    overflowY: "hidden",
 
 }
 const ma={
@@ -57,7 +70,22 @@ const shelf={
     width:"98%",
     marginTop:"-15vh",
     overflow: "scroll",
+}
+const library_btn={
+    width:"100%",
+    display:"flex",
+    margin:"15px 25vh 0.7rem 0em ",
+    justifyContent:"flex-end",
+}
 
+const title_btn={
+    margin:"0.3rem",
+    cursor:"pointer",
+}
+
+const img_btn={
+    margin:"0.3rem",
+    cursor:"pointer",
 
 }
 export default function MyBookList(props){
@@ -67,6 +95,13 @@ export default function MyBookList(props){
             <div style={ma}>
             <Title />
             </div>
+
+            <div className="library_form"style={library_btn}>
+                
+                <button className="title_btn"style={title_btn}  onclick="title_fuc">Title</button>
+                <button className="img_btn" style={img_btn} alert="no" >Image</button>
+            </div>
+
             <ul className="list" style={ulstyle}>
                 <li style={books}>
                 <img src="../images/wood.jpg" style={bookSize} alt=""/>

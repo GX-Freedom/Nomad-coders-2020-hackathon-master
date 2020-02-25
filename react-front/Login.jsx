@@ -18,12 +18,17 @@ const btn={
 
 }
 const center_box={
-    height:"84vh",
+    height:"99vh",
+    width:"100%",
     display:"felx",
     flexDirection: "column",
     textAlign:"center",
     alignItems:"center",
     backgroundColor:"rgba(107, 26, 184, 0.085)",
+    position:"absolute",
+    left:"0",
+    top:"0",
+    overflowY:"hidden",
 }
 
 const aspan={
@@ -50,8 +55,8 @@ const box={
 
     return (
     <React.Fragment  style={center_box}>
-        <Title/>
     <div style={center_box}>
+        <Title/>
         {/* <a href={props.routes.googleAuth} style={instyle}>구글 로그인</a>
         <a href={props.routes.naverAuth}style={instyle}>네이버 로그인</a> */}
         <form action={props.routes.login} method="post">
@@ -74,6 +79,12 @@ const box={
             </a>
         </div>
     </div>
+    <style jsx>{`
+        html, body {
+          margin: 0;
+          padding:0;
+        }
+      `}</style>  
     </React.Fragment>
     )}
 
