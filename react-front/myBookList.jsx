@@ -63,11 +63,11 @@ const books={
 const bookSize ={
     cursor: "pointer",
     margin:"1rem",
-    width:"25vh",
+    width:"7.5rem",
 }
 const shelf={
     display:"block",
-    width:"98%",
+    width:"100%",
     marginTop:"-15vh",
     overflow: "scroll",
 }
@@ -125,18 +125,7 @@ export default function MyBookList(props){
                     book_name
                 </span>
                 </li>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
+            
                 <li style={books}>
                 <img src="../images/wood.jpg" style={bookSize} alt=""/>
                 <span className="book_name">
@@ -182,21 +171,13 @@ export default function MyBookList(props){
             <div className="list"></div>
             <div className="list"></div>
             <div className="list"></div>
+            <style jsx>{`
+        html, body {
+          margin: 0;
+          padding:0;
+        }
+      `}</style>  
         </div>
         );
     }
     
-    // })
-    // return(
-        
-
-    //     <div className="book_list">
-    //         <div className="list">
-    //             <img src={bookimg.imgUrl} className=""book_img/>
-    //         </div>
-    //         <div className="list">wow</div>
-    //         <div className="list"></div>
-    //         <div className="list"></div>
-    //     </div>
-
-    // );

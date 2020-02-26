@@ -7,12 +7,14 @@
 .booklist{
     list-style: none;
 position: absolute;
-color: rgba(107, 26, 184, 0.253);
+color: rgba(203, 202, 204, 0.281);
 flex-direction: column;
 }
 
 ul{
+    position: absolute;
 
     overflow-y: hidden;
+    position: fixed;
 
 }

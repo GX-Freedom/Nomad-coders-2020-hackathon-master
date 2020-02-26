@@ -4,7 +4,7 @@ export default function title(props){
     
     const style={
         display:"inline-block",
-        width:"30%",
+        width:"20rem",
         height:"15vh",
         //position:"fixed",
         marginTop:"-1.2vh",
@@ -12,7 +12,7 @@ export default function title(props){
     }
 
 return     (<a href="/">
-    <img src="../images/BooLu.png" alt="" style={style} />
+    <img src="../images/BooLuv_logo.png" alt="" style={style} />
     </a>);
 
 }
