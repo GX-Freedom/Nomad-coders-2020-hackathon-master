@@ -1,24 +1,13 @@
-import React from "react";
+import React,{Component} from "react";
+import ReactDOM from 'react-dom';
 import Title from "./title";
-import {ho} from "./ho";
+import styled from "styled-components";
 
-
-
-
-const title_fuc=()=>{
-    console.log("title_btn_click");
-    const title = document.querySelector(".title_btn")
-
-    title.style.color ="red"
-}
-const img_fuc=()=>{
-
-}
 const main_box={
     margin:"0",
     padding:"0",
     width:"100%",
-    height:"100vh",
+    height:"100%",
     display:"flex",
     flexDirection:"column",
     justifyContent:"start",
@@ -53,12 +42,21 @@ const ma={
     width:"100%",
     zIndex:"2",
 }
+const test = styled.div`
+    transform: rotateY(45deg),
+    &:hover{
+        transform: rotateY(45deg);
+        cursor: pointer;
+    }
+    
+`;
 const books={
     display:"flex",
     flexDirection:"column",
     alignItems:"center",
     justifyContent:"end",
-
+    //transform:"rotateY(45deg)",
+    
 }
 const bookSize ={
     cursor: "pointer",
@@ -68,13 +66,13 @@ const bookSize ={
 const shelf={
     display:"block",
     width:"100%",
-    marginTop:"-15vh",
+    marginTop:"-14vh",
     overflow: "scroll",
 }
 const library_btn={
     width:"100%",
     display:"flex",
-    margin:"15px 25vh 0.7rem 0em ",
+    margin:"15px 40vh 0.5rem 0em ",
     justifyContent:"flex-end",
 }
 
@@ -86,98 +84,137 @@ const title_btn={
 const img_btn={
     margin:"0.3rem",
     cursor:"pointer",
+}
+
+const ChColor= styled.button`
+    
+    color:blue;
+    background-color:blue;
+    width:50px;
+    cursor:pointer;
+    border: 5px solid pink;
+
+    &:hover{
+        color:blue;
+    }
+`;
+
+let newColor = {
+    
+    margin:"0.3rem",
+    marginLeft:"2rem",
+    color:"red",
+    cursor:"pointer",
+    backgroundColor:"black",
+    width:"3.7rem",
+    textAlign:"center",
+    fontSize:"1rem",
 
 }
-export default function MyBookList(props){
 
+function Title_fuc(){
+    newColor.color = "yellow";
+    newColor.backgroundColor="red";
+    console.log("function true");
+}
+
+
+const handleClick=()=>{
+    newColor.color="blue";
+console.log("handleClick");
+}
+
+export default function MyBookList(props){
+   
         return(
             <div className="book_list" style={main_box}>
-            <div style={ma}>
-            <Title />
-            </div>
+                <div style={ma}>
+                    <Title />
+                </div>
+                {/* <ChColor >why not styled-component apply</ChColor> */}
 
-            <div className="library_form"style={library_btn}>
+                <div className="library_form"style={library_btn}>
+                    <button className="title_btn"  style={newColor}  onclick={handleClick} >Title</button>
+                    <button className="img_btn" style={newColor} onclick={Title_fuc}  >Image</button>
+                </div>
                 
-                <button className="title_btn"style={title_btn}  onclick="title_fuc">Title</button>
-                <button className="img_btn" style={img_btn} alert="no" >Image</button>
-            </div>
-
-            <ul className="list" style={ulstyle}>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                {/* <img src={books.imgUrl} className=""book_img/> */}
-                </li>
-
-
-                {/* test ↓*/}
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
-            
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
-                {/* test ↑ */}
-
                 
-            </ul>
-            <div>
-                <img style={shelf} src="../images/shelf.png" alt=""/>
-            </div>
+                <ul className="list" style={ulstyle}>
+                   
 
-            <ul className="list" style={ulstyle}>
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                {/* <img src={books.imgUrl} className=""book_img/> */}
-                </li>
+                    {/* test ↓*/}
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                            book_name
+                        </span>
+                    </li>
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                            book_name
+                        </span>
+                    </li>
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                            book_name
+                        </span>
+                    </li>
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                        book_name
+                        </span>
+                    </li>
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                        book_name
+                        </span>
+                    </li>
+                    {/* test ↑ */}
 
-                <li style={books}>
-                <img src="../images/wood.jpg" style={bookSize} alt=""/>
-                <span className="book_name">
-                    book_name
-                </span>
-                </li>
+                    
+                </ul>
+                <div>
+                    <img style={shelf} src="../images/shelf.png" alt=""/>
+                </div>
 
-            </ul>
-            <div>
-                <img style={shelf} src="../images/shelf.png" alt=""/>
-            </div>
+                <ul className="list" style={ulstyle}>
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                            book_name
+                        </span>
+                    {/* <img src={books.imgUrl} className=""book_img/> */}
+                    </li>
+
+                    <li style={books}>
+                        <img src="../images/wood.jpg" style={bookSize} alt=""/>
+                        <span className="book_name">
+                            book_name
+                        </span>
+                    </li>
+
+                </ul>
+                <div>
+                    <img style={shelf} src="../images/shelf.png" alt=""/>
+                </div>
 
 
-            <div className="list"></div>
-            <div className="list"></div>
-            <div className="list"></div>
+
+
+
             <style jsx>{`
-        html, body {
-          margin: 0;
-          padding:0;
-        }
-      `}</style>  
+                html, body {
+                margin: 0;
+                padding:0;
+                height:100vh;
+                }
+            `}</style>  
         </div>
         );
     }
+    
     

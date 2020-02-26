@@ -1,4 +1,6 @@
 import React from "react";
+import {Div} from "./test";
+
 
 export default function title(props){
     
@@ -11,8 +13,10 @@ export default function title(props){
         justifyContent:"center",
     }
 
-return     (<a href="/">
-    <img src="../images/BooLuv_logo.png" alt="" style={style} />
+return     (
+
+    <a href="/">
+        <img src="../images/BooLuv_logo.png" alt="" style={style} />
     </a>);
 
 }

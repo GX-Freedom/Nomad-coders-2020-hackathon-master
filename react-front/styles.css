@@ -13,8 +13,8 @@ flex-direction: column;
 
 ul{
     position: absolute;
-
     overflow-y: hidden;
     position: fixed;
+    transform: rotateY(45deg);
 
 }
