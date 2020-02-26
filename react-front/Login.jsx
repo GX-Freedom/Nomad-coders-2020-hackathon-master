@@ -1,8 +1,16 @@
 import React from "react";
 import Title from "./title";
+import Styled,{css} from"styled-components";
 
+
+const H_one = Styled.h1`
+  
+    font-size:2rem;
+    color: red;
+`;
 
 function Login(props){
+    
 const Auths = () => {
     
 const instyle ={
@@ -49,9 +57,6 @@ const astate={
     alignItems:"center",
     justifyContent:"center",
 }
-const box={
-    body:"maring:0",
-}
 
     return (
     <React.Fragment  style={center_box}>
@@ -78,6 +83,7 @@ const box={
                 <img style={snsimg} src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" />
             </a>
         </div>
+
     </div>
     <style jsx>{`
         html, body {

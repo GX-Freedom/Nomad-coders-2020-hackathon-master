@@ -70,16 +70,27 @@ class bookDetail extends React.Component {
             if(this.props.totalRate)
             {
                 
-                for(var i =0; i<this.props.totalRate; i++)
+                if(this.props.totalRate/parseInt(this.props.totalRate) >= 1.1)
                 {
-                    totalStar += "★"; 
+                    for(let i =0; i< this.props.totalRate; i++)
+                    {
+                        totalStar += "★";
+                    }
+                }
+                else{
+                    for(let i =0; i< parseInt(this.props.totalRate); i++)
+                    {
+                        totalStar += "★";
+                    }
                 }
             }
         }
         totalPoint();
 
+        
         const book = this.props.book
-        console.log(book);
+
+        
         return(
             
             <React.Fragment>
@@ -93,7 +104,7 @@ class bookDetail extends React.Component {
             <h2>{book.author}</h2>
             <h3>{book.description}</h3>
             <h3>{totalStar}</h3>
-            <h3>{this.props.totalRate}점</h3>
+            <h3>{parseFloat(this.props.totalRate)||0}점</h3>
         <form action={this.props.routes.editBook(book.id)} method="post" style={inmargin}>
             <input type="text" name="title" placeholder="수정할 이름" value={book.title} style={inputstyle}/>
             <input type="textarea" name="description" placeholder="상세내용" value={book.description}style={inputstyle}/>
@@ -117,16 +128,24 @@ class bookDetail extends React.Component {
         {book.review.map( (item) => {
             
         let star="";
-        let test=`${<i class="fas fa-star-half-alt"></i>}`;
 
 
         const starPoint=()=>{
 
             if(item.rate)
             {
-                for(var i =0; i<item.rate; i++)
+                if(item.rate/parseInt(item.rate) >= 1.1)
                 {
-                    star += "★";
+                    for(let i =0; i< item.rate; i++)
+                    {
+                        star += "★";
+                    }
+                }
+                else{
+                    for(let i =0; i< parseInt(item.rate); i++)
+                    {
+                        star += "★";
+                    }
                 }
             }
         }
@@ -142,7 +161,6 @@ class bookDetail extends React.Component {
                 <h3>{star}</h3>
                 <h3>{item.rate} 점</h3>
                 <h3>{JSON.stringify(item.createdAt)}</h3>
-                    <h3>{test}</h3>
                 <h3>{hours}</h3>
                 </div>
                 )

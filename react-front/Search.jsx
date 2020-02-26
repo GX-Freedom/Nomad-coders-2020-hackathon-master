@@ -1,4 +1,5 @@
 import React from "react";
+import Title from "./title";
 
 
 const style={
@@ -31,6 +32,7 @@ class search extends React.Component{
             return (
              <React.Fragment>
             <div className="search_list" style={style}>
+
                 <ul className="book_info" style={book_info}>
                     <img src={books.imageUrl} style={imgSize}/>
                     <h1>{books.title}</h1>                                                                                                                                                                                                                                                                                                                                       
@@ -44,6 +46,7 @@ class search extends React.Component{
         return (
         // console.log(resultScreen),
         <div>
+            <Title/>
             <h1>{results[0].terms[0]} 검색결과 : </h1>
             {resultScreen} 
         </div>
