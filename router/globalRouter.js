@@ -3,15 +3,16 @@ import routes from "../routes";
 import {home, login, join, postJoin, postLogin, logout} from "../controller/userController";
 import passport from "passport";
 import { bookDetail } from "../controller/bookController";
+import { onlyLoggedOut } from "../middleware";
 
 const globalRouter = express.Router();
 
 globalRouter.get(routes.home, home);
 
-globalRouter.get(routes.login, login);
-globalRouter.post(routes.login, postLogin);
+globalRouter.get(routes.login,onlyLoggedOut, login);
+globalRouter.post(routes.login,onlyLoggedOut, postLogin);
 
-globalRouter.get(routes.googleAuth, 
+globalRouter.get(routes.googleAuth,onlyLoggedOut, 
 passport.authenticate('google', { scope: ['profile', 'email', 'openid'] }) // openid?
 )
 
@@ -22,7 +23,7 @@ globalRouter.get(routes.googleAuthCallback,
     }
 )
 
-globalRouter.get(routes.naverAuth, 
+globalRouter.get(routes.naverAuth, onlyLoggedOut,
     passport.authenticate('naver', {
         failureRedirect: routes.login
     })
@@ -34,6 +35,15 @@ globalRouter.get(routes.naverAuthCallback,
         res.redirect(routes.home);
     }
     )
+
+globalRouter.get(routes.slackAuth,onlyLoggedOut,
+    passport.authenticate('slack')
+    )
+
+globalRouter.get(routes.slackAuthCallback,
+  passport.authenticate('slack', { failureRedirect: routes.login }),
+  (req, res) => res.redirect(routes.home) // Successful authentication, redirect home.
+);
 
 globalRouter.get(routes.logout, logout);
 

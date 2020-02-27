@@ -4,6 +4,7 @@ import routes from "./routes";
 import GoogleStrategy from "passport-google-oauth20";
 import NaverStrategy from "passport-naver";
 import dotenv from "dotenv";
+import SlackStrategy from "passport-slack";
 
 dotenv.config();
 
@@ -58,7 +59,7 @@ passport.use(new NaverStrategy({
     callbackURL: `http://localhost:4000${routes.naverAuthCallback}`
 },
 async function(accessToken, refreshToken, profile, cb){
-        console.log(profile);
+        
     
     const { _json : {id,email, profile_image, nickname} } = profile;
     try{
@@ -82,6 +83,36 @@ async function(accessToken, refreshToken, profile, cb){
     }
     
 }
+))
+
+passport.use(new SlackStrategy.Strategy({
+    clientID: process.env.SLACK_CLIENT_ID,
+    clientSecret: process.env.SLACK_CLIENT_SECRET,
+    skipUserProfile: false, // default
+    scope: ['identity.basic', 'identity.email', 'identity.avatar', 'identity.team'] // default
+}, async(accessToken, refreshToken, profile, cb) => {
+    const { user : {id,email, image_512, name} } = profile;
+    try{
+        const user = await User.findOne({email})
+        if (user) {
+            user.slackId = id;
+            user.profilePhoto = image_512;
+            user.save();
+            return cb(null, user)
+        }
+        const newUser = await User.create({
+            email,
+            name,
+            slackId: id,
+            profilePhoto: image_512
+        });
+        return cb(null, newUser);
+        
+    }catch(error){
+        return cb(error)
+    }
+}
+
 ))
 
 passport.serializeUser(User.serializeUser());

@@ -2,6 +2,7 @@ import Book from "../model/book";
 import routes from "../routes";
 import User from "../model/user";
 import Review from "../model/review";
+import akin from "@asymmetrik/akin";
 
 export const getAddBook = (req, res) => {
     res.render("uploadBook")
@@ -35,12 +36,16 @@ export const bookDetail = async(req, res) => {
     const { params: {id} } = req;
     let rateFigure = 0;
     let booksFigure = 0;
-    const book = await Book.findById(id).populate("enrolledBy").populate("review")
-    console.log(book.review)
+    const book = await Book.findById(id).populate("enrolledBy").populate("review");
+    if(req.user){
+     akin.activity.log(req.user.id, book.id)
+     akin.run()
+    }
     book.review.forEach( argument => {
         rateFigure += argument.rate;
         booksFigure += 1;
     })
+    
     const totalRate = (rateFigure/booksFigure).toPrecision(2);
     res.render("book-detail" , {book, totalRate});
 }
@@ -51,7 +56,7 @@ export const myBookList = async(req, res) => {
     res.render("myBookList", {currentUser});
 }
 
-export const postMyBookList = (req, res) => {
+export const postMyBookList = async(req, res) => {
     const {
         params: {id}, user
     } = req;
@@ -65,7 +70,11 @@ export const postMyBookList = (req, res) => {
     if(overlap === false){
     user.favBooks.push(id)
     user.save();
+    const book = await Book.findById(id)
+    book.likeFigure +=1;
+    book.save()
     }
+
     res.redirect(`/${routes.myBookList(user.id)}`);
 }
 
@@ -78,13 +87,14 @@ export const postReview = async(req, res) => {
         params: {id},
         user
     } = req;
-   // console.log(reviewContent, rate, id, req.user)
+    console.log(reviewContent, rate, id, req.user)
     const book = await Book.findById(id);
     const review = await Review.create({
         content: reviewContent,
         rate,
         creator: user.username,
-        creatorPhoto: user.profilePhoto
+        creatorPhoto: user.profilePhoto,
+        email: user.email
     })
     book.review.push(review.id);
     book.save();
@@ -119,6 +129,34 @@ export const deleteBook = async(req, res) => {
     }
 }
 
-export const myBook= async(req,res)=>{
-    res.render("MyBookList");
+export const deleteFavBook = async(req, res) => {
+    const {
+        params : {id}, user
+    } = req;
+    let a = 0;
+        user.favBooks.map(favBook => {
+            if(favBook == id){
+                user.favBooks.splice(a,1)
+                user.save();
+            }
+            a+=1;
+        })
+        const book = await Book.findById(id)
+        book.likeFigure -=1;
+        book.save()
+
+    res.redirect(`/${routes.myBookList(user.id)}`)
+}
+
+export const deleteRate = async(req, res) => {
+    const {
+        params : {id}, user
+    } = req;
+    try{
+        await Review.findByIdAndDelete({_id : id})
+        
+    }catch(error){
+        console.log(error)
+    }
+    res.redirect("back")
 }

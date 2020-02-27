@@ -3,6 +3,7 @@ import Book from "../model/book";
 import User from "../model/user";
 import passport from "passport";
 import MiniSearch from "minisearch";
+import akin from "@asymmetrik/akin";
 
 
 export const home = async(req, res) => {
@@ -10,7 +11,34 @@ export const home = async(req, res) => {
     const books = await Book.find({}).populate("enrolledBy");
     
     
-    res.render("home", {books})
+    if(req.user){
+    let recommendation = akin.recommendation.getAllRecommendationsForUser(
+        req.user.id
+      );
+    recommendation=  await recommendation.then(function(result) {
+        return(result) 
+     })
+     
+      if(recommendation !== null){
+          
+      const recomedbooksID = recommendation.recommendations.map( argument => {
+          return(argument.item)
+      })
+      
+      const recomendBooks = await Promise.all(recomedbooksID.map(async argument => {
+          const book = await Book.findById(argument);
+          return(book)
+      }))
+    console.log(`recommendation:${recommendation}`)
+    res.render("home", {books, recomendBooks})
+      }else{
+        res.render("home", {books})
+      }
+    
+    }else{
+        
+        res.render("home", {books})
+      }
     }catch(error){
         console.log(error);
     }
@@ -71,7 +99,7 @@ export const search = async(req, res) => {
     const books = await Book.find({})
     let miniSearch = new MiniSearch({
         fields: ['title', 'author', 'description'], // fields to index for full-text search
-        storeFields: ['title', 'author', 'imageUrl'] // fields to return with search results
+        storeFields: ['title', 'author', 'imageUrl', 'description'] // fields to return with search results
       })
     miniSearch.addAll(books);
     
@@ -107,3 +135,4 @@ export const postEditUser = async(req, res) => {
     }
     
 }
+

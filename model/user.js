@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema ({
     },
     googleId: Number,
     naverId: Number,
+    slackId: String,
     uploadedBooks: [{
     type: Schema.Types.ObjectId,
     ref: "Book"
@@ -22,8 +23,11 @@ const userSchema = new mongoose.Schema ({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: "Review"
+    }],
+    recomedBooks : [{
+        type: Schema.Types.ObjectId,
+        ref: "Review"
     }]
-
 })
 
 userSchema.plugin(passportLocalMongoose, {usernameField: "email"});
