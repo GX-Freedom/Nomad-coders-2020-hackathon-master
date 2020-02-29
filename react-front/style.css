@@ -1,0 +1,20 @@
+a{
+    position: sticky;
+    background-color: rgba(151, 150, 150, 0.164);
+    justify-content: space-around;
+    align-content: space-between;
+    justify-self: flex-end; 
+    align-content: flex-end;
+
+
+}
+img{
+    
+    overflow: auto;
+
+}
+div{
+    width: 100px;
+    overflow: visible;
+
+}

@@ -1,20 +1,29 @@
 import React from "react";
+import { BaseLayout } from "./layout";
+import styled, { createGlobalStyle } from "styled-components";
+import { GlobalStyle } from "./GlobalStyle/ResetCss";
+
+
+const Imag_styles = styled.img`
+    position: relative;
+    width:15%;
+    /* 10rem */
+    display:inline-block;
+    margin-top:-3rem;
+`;
 
 export default function title() {
 
-    const style = {
-        display: "inline-block",
-        width: "20%",
-        height: "15vh",
-        //position:"fixed",
-        marginTop: "-1.2vh",
-        justifyContent: "center",
-    }
 
     return (
-
-        <a href="/">
-            <img src="../images/BooLuv_logo.png" alt="" style={style} />
-        </a>);
+        <BaseLayout>
+            <>
+            <GlobalStyle/>
+                <a href="/">
+                    <Imag_styles src="../images/BooLuv_logo.png" alt="" />
+                </a>
+            </>
+        </BaseLayout>
+    );
 
 }
