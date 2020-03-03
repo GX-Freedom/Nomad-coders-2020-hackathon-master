@@ -3,7 +3,7 @@ import Title from "./title";
 import Header from "./Header";
 import { BaseLayout } from "./layout";
 import styled, { createGlobalStyle } from "styled-components";
-import { GlobalStyle } from "./GlobalStyle/ResetCss";
+import GlobalStyle from "./globalStyles/ResetCss";
 
 const Divs = styled.div`
     width:100%;
@@ -45,7 +45,13 @@ const Box_img = styled.div`
     justify-content:center;
     flex-direction:column;
     border-bottom-right-radius:10px;
-    
+  
+`;
+const Input = styled.input`
+    margin:0.4rem;
+    &:hover{
+        cursor:pointer;
+    }
 `;
 
 function Login(props) {
@@ -58,9 +64,9 @@ function Login(props) {
                         <Divs className="login_all_box">
                             <Box_img>
                             <form action={props.routes.login} method="post">
-                                <input type="email" name="email" placeholder="이메일"></input>
-                                <input type="password" name="password" placeholder="패스워드"></input>
-                                <input type="submit" value="로그인"></input>
+                                <Input type="email" name="email" placeholder="이메일"></Input>
+                                <Input type="password" name="password" placeholder="패스워드"></Input>
+                                <Input type="submit" value="로그인"></Input>
                             </form>
                             <div>
                                 <Asns href={props.routes.googleAuth}>

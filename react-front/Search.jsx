@@ -1,9 +1,6 @@
 import React from "react";
 import Title from "./title";
 
-import { BaseLayout } from "./layout";
-import styled, { createGlobalStyle } from "styled-components";
-import {GlobalStyle}from "./GlobalStyle/ResetCss";
 
 class search extends React.Component {
     render() {
@@ -12,7 +9,7 @@ class search extends React.Component {
             if (results[0]) {
                 return (
                     <div>
-                        {Header(this.props)}
+                        <Title />
 
                         <h1>{results[0].terms[0]} 검색결과 : </h1>
                         {resultScreen}

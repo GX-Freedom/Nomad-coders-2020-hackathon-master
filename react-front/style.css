@@ -1,20 +1,26 @@
 a{
-    position: sticky;
-    background-color: rgba(151, 150, 150, 0.164);
-    justify-content: space-around;
-    align-content: space-between;
-    justify-self: flex-end; 
-    align-content: flex-end;
+position: sticky;
+background-color: rgba(229, 224, 149, 0.582);
+
 
 
 }
 img{
-    
-    overflow: auto;
+overflow: auto;
 
 }
 div{
-    width: 100px;
-    overflow: visible;
+width: 100px;
+overflow: visible;
 
+animation: screen 1s inherit;
+transform: rotateY();
+}
+
+
+@media screen and (max-width: 1300px)
+{ 
+  body{
+    display:flex;
+  }
 }
