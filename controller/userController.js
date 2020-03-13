@@ -29,7 +29,7 @@ export const home = async(req, res) => {
           const book = await Book.findById(argument);
           return(book)
       }))
-    console.log(`recommendation:${recommendation}`)
+    //console.log(`recommendation:${recommendation}`)
     res.render("home", {books, recomendBooks})
       }else{
         res.render("home", {books})
@@ -72,7 +72,6 @@ export const postJoin = async(req, res) => {
         user,
         password
     )
-    console.log(`newUser:${newUser}`);
     res.redirect(routes.home)
 }catch(error){
     console.log(error);
@@ -94,7 +93,6 @@ export const profile = async(req, res) => {
     const currentUser = await User.findById(id).populate("uploadedBooks").populate("reviews");
     res.render("profile", {currentUser})
 }
-
 export const search = async(req, res) => {
     const books = await Book.find({})
     let miniSearch = new MiniSearch({
@@ -103,10 +101,10 @@ export const search = async(req, res) => {
       })
     miniSearch.addAll(books);
     
-    let results = miniSearch.search(req.body.search)
+    let results = miniSearch.search(req.body.search, { prefix: true})
     
     
-    res.render("search", {results})
+    res.render("search", {results, searchingBy : req.body.search})
 }
 
 export const editUser = (req, res) => {
@@ -124,8 +122,7 @@ export const postEditUser = async(req, res) => {
             const newUser = await User.findByIdAndUpdate({_id:id},
                 {username, profilePhoto}
                 );
-                
-                console.log(newUser)
+            
         }catch(error){
             console.log(error)
             res.redirect(routes.home);
@@ -136,3 +133,7 @@ export const postEditUser = async(req, res) => {
     
 }
 
+export const getKakaoSearch = (req, res) => {
+    
+   
+}

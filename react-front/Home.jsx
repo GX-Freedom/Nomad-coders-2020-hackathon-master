@@ -5,7 +5,6 @@ import { BaseLayout } from "./globalStyles/layout";
 import styled, { createGlobalStyle } from "styled-components";
 import GlobalStyle from "./globalStyles/ResetCss";
 
-
 const Div = styled.div`
     display:flex;
     justify-content:center;
@@ -33,15 +32,51 @@ const Recom_div = styled.div`
     }
 `;
 const Recom_a = styled.a`
-    display:fle;
+    display:flex;
     text-align:center;
     align-items:center;
     justify-content:center;
 `;
 
+let i = 1;
+
 const Ul = styled.ul`
     display:block;
     margin-top:-5rem;
+    
+    /* &>li:first-child>a>span:nth-child(2){
+        color:red;
+    }
+    &>li:nth-child(2)>a>span:nth-child(2){
+        color:red;
+    } */
+    &>li{
+        margin-top:6rem;
+        display:flex;
+        flex-direction:column;
+    }
+   
+    &>li:nth-child(${i})>a>span:nth-child(2){
+        color:blue;
+    }
+    &>li:nth-child(${i})>a>span:nth-child(3){
+        color:blue;
+        ${i++}
+    }
+    
+    &>li:nth-child(${i})>a>span:nth-child(2){
+        color:blue;
+        ${i++}
+    }
+   
+
+    &>li:nth-child(${i})>a>span:nth-child(2){
+        color:blue;
+        ${i=1}
+    }
+
+
+
 `;
 
 const Li = styled.li`
@@ -70,21 +105,28 @@ const Image = styled.img`
         position:relative;
         width:10rem;
     }
+/* 
+    &:hover{
+     animation: Hover 0.2s 250ms linear forwards;
+    transform-style: preserve-3d; 
 
-:hover{
-animation: Hover 0.2s ease-in-out;
-animation-fill-mode: forwards;
-@keyframes Hover {
-    0%{
-        box-shadow: 0;
-        transform: translateY(0);
-    }
-    100%{
-        box-shadow: 10px 10px 20px black;
+
+        @keyframes Hover {
+            0%{
+                box-shadow: 0;
+                transform: translateY(0vh);
+            }
+        
+            100%{
+                box-shadow: 10px 10px 20px black;
+                transform: translateY(-4vh);
+                border-radius:5px;
+            }
+        } 
+
+    box-shadow: 10px 10px 20px black;
         transform: translateY(-5vw);
-    }
-}
-}
+    } */
 
 `;
 const Span = styled.span`
@@ -158,51 +200,88 @@ const Header_line = styled.div`
 const Book = styled.a`
 transform-style: preserve-3d;
 animation-fill-mode: forwards;
+
+:hover{
+
+
+&>img:first-child{
+    animation: Hover 0.2s 250ms linear forwards;
+    transform-style: preserve-3d;
+        @keyframes Hover {
+            0%{
+                box-shadow: 0;
+                transform: translateY(0vh);
+            }
+        
+            100%{
+                box-shadow: 10px 10px 20px black;
+                transform: translateY(-4vh);
+                border-radius:5px;
+            }
+        } 
+
+    /*box-shadow: 10px 10px 20px black;
+        transform: translateY(-5vw);*/
+    }
+}
+
 `
 
 function Home(props) {
+ 
 
-    const nextPage = () => {
-        console.log("!!!!!!!!!");
-    }
-
+    
     function recommendList() {
         if (props.recomendBooks) {
             return (
                 <h4 style={{ marginTop: "6rem" }}>
                     {props.user.username}님만을 위한 추천 리스트 :
-                    </h4>
+                </h4>
             )
         }
     }
-
+    
     function recomSys() {
-        console.log(props.recomendBooks)
+        // console.log(props.recomendBooks)
         if (props.recomendBooks) {
-            console.log(props.recomendBooks.length)
+            // console.log(props.recomendBooks.length)
             return (
-                props.recomendBooks.map(argument => {
-                    if(argument === null){
-                        return "";
+                props.recomendBooks.map(argument =>
+                    {
+                        if (argument === null) 
+                        {
+                            return "";
+                        }
+                    else 
+                    {
+                        return (
+                            <Li classNanme="reco_list">
+                                <Recom_a href={`/${props.routes.bookDetail(argument.id)}`}>
+                                    <Image width="10rem" src={argument.imageUrl} />
+                                    <Span>{argument.title}</Span>
+                                    <Span>{argument.author}</Span>
+                                    <Span>{argument.description}</Span>
+                                </Recom_a>
+                                
+                            </Li>
+                            )
                     }
-                    else{
-                    return (
-                        <Li classNanme="reco_list">
-                            <Recom_a href={`/${props.routes.bookDetail(argument.id)}`}>
-                                <Image width="10rem" src={argument.imageUrl} />
-                                <Span>{argument.title}</Span>
-                                <Span>{argument.author}</Span>
-                                <Span>{argument.description}</Span>
-                            </Recom_a>
-                        </Li>
-                    )}
                 })
             )
         } else {
             return "";
         }
-
     }
+
+    function example(){
+        console.log("xxx")
+       
+    }
+
+    const handleClick = () =>{
+        console.log("sdfasfgdgbxgdzgsdfbsfvbx")
+       }
+       
     const bookList =
         props.books.map(book => {
             return (
@@ -217,7 +296,7 @@ function Home(props) {
                                 <Spantwo>{JSON.stringify(book.createdAt)}</Spantwo>
                                 {/* <Spantwo>{book.description}</Spantwo> */}
                             </Text_box>
-                      </Book>
+                        </Book>
                     </div>
                 </Header_line>
             )
@@ -242,15 +321,13 @@ function Home(props) {
                         </Button>
                     </Ul>
                 </Recom_div>
+                <Button id="btn" >
+                    this button
+                </Button>
                 {bookList}
 
-                <Button color="blue" >
-                    Next 
-                    {
-                      `${nextPage}`
-                    }
-                </Button>
             </Grid_box>
+            <script src="/vanilla/home.js"></script>
         </BaseLayout>
     );
 }
