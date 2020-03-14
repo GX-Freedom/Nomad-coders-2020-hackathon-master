@@ -1,18 +1,23 @@
 const kakaoUpload = document.getElementById("kakaoBook");
 const bookTitle = document.getElementById("target");
+const resultScreen = document.getElementById("resultScreen");
+const bookTitle2 = document.getElementById("bookTitle");
+const bookDescription = document.getElementById("bookDescription");
+const bookAuthor = document.getElementById("bookAuthor");
 
+/*
 const client = async(e) =>{ 
     console.log(bookTitle.value)
     console.log(e);
     e.preventDefault();
     try {
-      await axios.get("https://dapi.kakao.com/v3/search/book?target=title",{
+      await axios.get("https://dapi.kakao.com/v3/search/book",{
         query: bookTitle.value}
         ,
         {headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'Host': 'dapi.kakao.com',
-          'Authorization': 'KakaoAK 8efbd07fbb76bd00a26b6203eb5a57b6',
+          'Authorization': 'KakaoAK 2f0ccf520e86aab3f7366d1b04a1aadc'
         }
       }).then(function(msg){
         console.log(msg);})
@@ -21,6 +26,60 @@ const client = async(e) =>{
     }
   
 }  
+*/
+let bookList
+const findBooks = async e => {
+  console.log(bookTitle.value)
+    console.log(e);
+    e.preventDefault();
+    resultScreen.innerHTML= "";
+  try {
+    const kakaoApi = await axios.get("https://dapi.kakao.com/v3/search/book", {
+      params: { query: bookTitle.value },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: "KakaoAK 8efbd07fbb76bd00a26b6203eb5a57b6"
+      }
+    });
+    bookList = kakaoApi.data.documents;
+    console.log(bookList);
+    const result = bookList.map((book)=>{
+      const span = document.createElement("span")
+      const img = document.createElement("IMG")
+      const p = document.createElement("p")
+      const span2 = document.createElement("span");
+      const a = document.createElement("a");
+      const div = document.createElement("div");
+      const btn = document.createElement("button");
+      
+      return (
+        img.src = book.thumbnail,
+        a.appendChild(img),
+        span.innerHTML = book.title,
+        a.appendChild(span),
+        span2.innerHTML = book.authors[0],
+        a.appendChild(span2),
+        p.innerHTML = book.contents,
+        a.appendChild(p),
+        a.href= book.url,
+        
+        btn.innerHTML = "선택",
+        div.appendChild(btn),
+        div.appendChild(a),
+        resultScreen.appendChild(div),
+        btn.addEventListener("click", ()=>{
+          bookTitle2.value = book.title;
+          bookDescription.value = book.contents;
+          bookAuthor.value = book.authors[0];
+        })
+      )
+    })
+    console.log(result)
+    
+  } catch (error) {
+    console.log(error.response);
+  }
+};
 
 
 /*
@@ -123,7 +182,7 @@ function uploadBookApi(e){
     
 }
 function init(){
-kakaoUpload.addEventListener("submit", client);
+kakaoUpload.addEventListener("submit", findBooks);
 };
 
 init();

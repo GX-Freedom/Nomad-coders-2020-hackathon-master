@@ -16,7 +16,7 @@ const Recom_div = styled.div`
     height:45vh;
     display:grid;
     overflow: auto;
-    grid-area: span 1/ span 5;
+    grid-area: span 1/ span 6;
     background:   rgba(8, 177, 199, 0.767);
 
     /* display:fixed;
@@ -93,6 +93,8 @@ const Li = styled.li`
 
 const Button = styled.button`
     margin:0.6rem;
+    font-size:1rem;
+    width:6vh;
 `;
 
 const Image = styled.img`
@@ -134,7 +136,7 @@ const Grid_box = styled.div`
     display:grid;
     grid-template-columns: repeat(6,1fr);
     text-align:center;
-     
+     background-color:rgba(243, 239, 177, 0.521);
     @media screen and (max-width: 1450px)
     { 
         text-align:center;
@@ -241,6 +243,7 @@ function Home(props) {
                         return (
                             <Li className="reco_list">
                                 <Recom_a href={`/${props.routes.bookDetail(argument.id)}`}>
+                                   
                                     <Image width="10rem" src={argument.imageUrl} />
                                     <Reco_span>
                                         제목:<br />
@@ -314,9 +317,7 @@ function Home(props) {
                         </Button>
                     </Ul>
                 </Recom_div>
-                <Button id="btn" >
-                    this button
-                </Button>
+               
                 {bookList}
 
             </Grid_box>
