@@ -17,8 +17,8 @@ const Recom_div = styled.div`
     display:grid;
     overflow: auto;
     grid-area: span 1/ span 6;
-    background:   rgba(8, 177, 199, 0.767);
-
+    /*background: rgba(8, 177, 199, 0.767);*/
+    background-image:url("https://cdn.pixabay.com/photo/2013/03/02/02/40/portrayal-89193_1280.jpg");
     /* display:fixed;
     position:absolute;
     right:0;
@@ -39,12 +39,14 @@ const Recom_a = styled.a`
     text-align:center;
     align-items:center;
     justify-content:space-between;
-
+    color:white;
    
   
     &>span{
-    width:10vh;
-    height:10vh;
+        width:10vh;
+        height:11.5vh;
+        overflow: hidden;
+        text-overflow: hidden;    
     }
     span:nth-child(4){
         width:30vh;
@@ -87,11 +89,11 @@ const Li = styled.li`
     /* text-overflow: auto; */
     margin-right:1rem;
     
-    animation: slide 1s;
+    animation: slide 1.5s;
 
     @keyframes slide{
         0%{
-            transform:translateX(25vh);
+            transform:translateX(35vh);
         }
         100%{
         }
@@ -251,6 +253,20 @@ const Button_Next = styled.button`
     justify-self:center;
 `;
 
+const Background_img = styled.div`
+    position:absolute;
+    top:0; 
+    width:100%;
+    height:100vh;
+    z-index:-2;
+    background-color:rgba(243, 239, 177, 0.521);
+    background-repeat:repeat;
+    background-position:center center;
+    background-size:100% 100%;
+   
+`;
+
+
 function Home(props) {
 
 
@@ -258,14 +274,14 @@ function Home(props) {
     function recommendList() {
         if (props.recomendBooks) {
             return (
-                <h4 style={{ marginTop: "6rem" }}>
+                <h4 style={{ marginTop: "6rem",color:"white" }}>
                     {props.user.username}님만을 위한 추천 리스트 :
                 </h4>
             )
         }
         else {
             return (
-                <h1 style={{ marginTop: "6rem" }}>로그인 하시면 북마크 기능에 기반한 추천리스트를 받아보실 수 있습니다</h1>
+                <h1 style={{ marginTop: "6rem",color:"white" }}>로그인 하시면 북마크 기능에 기반한 추천리스트를 받아보실 수 있습니다</h1>
             )
         }
     }
@@ -283,7 +299,6 @@ function Home(props) {
                         return (
                             <Li className="reco_list">
                                 <Recom_a href={`/${props.routes.bookDetail(argument.id)}`}>
-
                                     <Image height="100%" width="20vh" src={argument.imageUrl} />
                                     <Reco_span>
                                         제목:<br />
@@ -298,7 +313,6 @@ function Home(props) {
                                         {argument.description}
                                     </Reco_span>
                                 </Recom_a>
-
                             </Li>
                         )
                     }
@@ -323,7 +337,7 @@ function Home(props) {
                                 <H_two>
                                     작가 : {book.author}
                                 </H_two>
-                               <div> 조회수 {book.viewsFigure}회 </div>
+                                <div> 조회수 {book.viewsFigure}회 </div>
                             </Text_box>
                         </Book>
                         <Spantwo>({book.enrolledBy[0].username}님이 등록)</Spantwo>
@@ -357,6 +371,8 @@ function Home(props) {
                 {bookList}
                 {/* <Button_Next>lalalal</Button_Next> */}
             </Grid_box>
+            {/* <Background_img >
+            </Background_img> */}
             <script src="/vanilla/home.js"></script>
         </BaseLayout>
     );

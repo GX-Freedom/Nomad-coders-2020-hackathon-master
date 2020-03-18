@@ -15,7 +15,7 @@ const header_form = document.getElementById("header_form");
   
     const handleClick = async ()  =>{
         incon_box.style.height = "30vh";
-        incon_box.style.backgroundColor = "black";
+        incon_box.style.backgroundColor = "rgba(15, 15, 15, 0.425)";
         incon_box.style.color = "white";
         
         if(incon_box.style.width === "30vh")
@@ -74,7 +74,12 @@ const headerInit = async ()=>{
 
     // header_search_input.addEventListener("focusout", handleSearch);
 
-
+    document.addEventListener("click",()=>{
+            if(header_search_input.style.width > `20vh`)
+            {
+                header_search_input.style.width = `20vh`
+            }
+        })
     incon_box.addEventListener("click", handleClick);
     incon_box.addEventListener("mouseleave",handleClick);
 
