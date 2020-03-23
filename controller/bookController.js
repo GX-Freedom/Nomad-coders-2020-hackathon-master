@@ -13,17 +13,21 @@ export const getAddBook = (req, res) => {
 
 export const postAddBook = async(req, res) => {
     const {
-        body: {bookName,bookDescription,author}, file:{path}
+        body: {bookName, bookDescription, author, genre}, file:{path}
     } = req;
+    if(genre == ""){
+        res.render(routes.addBook, {msg:"장르를 선택하세요!"})
+    }
     try{
     const newBook = await Book.create({
         title:bookName,
         author,
         description:bookDescription,
         imageUrl:path,
-        enrolledBy: req.user.id
+        enrolledBy: req.user.id,
+        genre
     })
-    
+    console.log(newBook.genre)
     const currentUser = req.user;
     currentUser.uploadedBooks.push(newBook.id);
     currentUser.save();
@@ -49,6 +53,7 @@ export const bookDetail = async(req, res) => {
         booksFigure += 1;
         }
     })
+    /*
     const pickedColor = ColorThief.getColor(book.imageUrl,3)
             .then(color => {return color})
             .catch(err => {console.log(err)})
@@ -65,8 +70,9 @@ export const bookDetail = async(req, res) => {
         return hex.length === 1 ? '0' + hex : hex
       }).join('')
       const coverColor = rgbToHex(R,G,B);
+      */
     const totalRate = (rateFigure/booksFigure).toPrecision(2);
-    res.render("book-detail" , {book, totalRate, coverColor});
+    res.render("book-detail" , {book, totalRate});
     }catch(err){
     console.log(err);
     res.render("404");
