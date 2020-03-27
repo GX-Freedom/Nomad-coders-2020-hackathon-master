@@ -47,10 +47,10 @@ class bookDetail extends React.Component {
         function ActivateReview() {
             if (user) {
                 return (
-                    <form action={routes.postReview(book.id)} method="post">
-                        <InputReview type="textarea" name="reviewContent" placeholder="책에 대한 평가를 남겨주세요!"  rows="1" />
+                    <form action={routes.postReview(book.id)} id="postReview" method="post">
+                        <InputReview type="textarea" autoComplete="off" name="reviewContent" placeholder="책에 대한 평가를 남겨주세요!"  rows="1" />
                         <InputRate type="number" name="rate" placeholder="평점을 남겨주세요" min={0} max={10} value={0} step={.1} />
-                        <ReviewSubmit type="submit" value="등록" />
+                        <ReviewSubmit id="postReviewBtn" type="submit" value="등록" />
                     </form>
                 )
             }
@@ -141,15 +141,17 @@ class bookDetail extends React.Component {
                                         starPoint();
                                         return (
                                             <Comment>
-                                                <a href={this.props.routes.profile(item.creator)}>
+                                                <Avatar>
                                                 <img src={item.creatorPhoto} width="50vh" />
-                                                </a>
                                                 <h3>{item.creator}</h3>
-                                                <h3>{item.content}</h3>
-                                                <h3>{star}</h3>
-                                                <h3>{item.rate}점</h3>
-                                                <h3>{JSON.stringify(item.createdAt)}</h3>
+                                                </Avatar>
+                                                <Review>
+                                                <Content>{item.content}</Content>
+                                                <Star>{star}({item.rate})</Star>
+                                                
+                                                <h3 id="commentedAt">{JSON.stringify(item.createdAt)}</h3>
                                                 {UserWhoRated(item)}
+                                                </Review>
                                             </Comment>
                                         )
                                     })}
@@ -167,18 +169,40 @@ class bookDetail extends React.Component {
                      */}
                     </BookInfos>
                     <ControlBook>
-                            <ControlBtn id="rotateBtn">책 돌리기</ControlBtn>
-                            <ControlBtn id="openBtn">책 펼치기</ControlBtn>
+                            <ControlBtn id="rotateBtn"><i class="fas fa-undo"></i>책 돌리기</ControlBtn>
+                            <ControlBtn id="openBtn"><i class="fas fa-book-open"></i>책 펼치기</ControlBtn>
                             </ControlBook>
                     <CheckUser />
                 </Background>
                 <script src="/vanilla/bookDetail.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
             </BaseLayout>
         )
     }
 }
 
+const Avatar = styled.section`
+display:flex;
+flex-direction:column;
+`
+const Content = styled.span`
+font-weight:700;
+width:15vw;
+overflow:hidden;
+`
 
+const Review = styled.section`
+display:flex;
+flex-direction:column;
+background-color:#F6B93B;
+border-radius:0px 20px 20px 20px;
+text-align:center;
+`
+const Star = styled.span`
+color:blue;
+display:flex;
+justify-content:center;
+`
 
 const Background = styled.section`
 background-image: url("https://cdn.pixabay.com/photo/2017/10/16/02/49/teddy-bear-2855982_1280.jpg");
@@ -446,16 +470,18 @@ background-position: center center;
 display: flex;
 flex-direction: column;
 align-items: center;
-border-radius: 20px;
+border-radius: 20px 20px 20px 20px;
 `
 
 const Comment = styled.div`
 display:flex;
-flex-direction: column;
+flex-direction: row;
+justify-content: space-around;
 align-items: center;
 color:black;
 margin-top:0.3rem;
 background-color: rgba(255,255,255,0.3);
+width:25vw;
 `
 
 const InputReview = styled.textarea`

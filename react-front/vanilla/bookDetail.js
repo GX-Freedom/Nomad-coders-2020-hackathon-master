@@ -1,3 +1,5 @@
+
+
 const book = document.getElementById("book");
 const rotateBtn = document.getElementById("rotateBtn");
 const openBtn = document.getElementById("openBtn");
@@ -5,6 +7,10 @@ const frontCover = document.getElementById("frontCover");
 const coverImg = document.getElementById("coverImg");
 const bookSpine1 = document.getElementById("bookSpine1");
 const bookSpine2 = document.getElementById("bookSpine2");
+const commentedAt = document.getElementById("commentedAt");
+const postReview = document.getElementById("postReview");
+const postReviewBtn = document.getElementById("postReviewBtn");
+
 
 
 
@@ -27,6 +33,8 @@ function revertRotate(){
     frontCover.style.animation="closeBook forwards";
     coverImg.style.animation="showImage 0.5s forwards";
     book.style.perspective= "none";
+    frontCover.addEventListener("mouseover", rotate2);
+
     rotateBtn.removeEventListener("click", revertRotate);
     rotateBtn.addEventListener("click", rotate);
 }
@@ -73,10 +81,17 @@ function open(){
     rotateBtn.addEventListener("click", rotate);
 }
 
+function postReviewApi(){
+    
+
+}
+
+
 function bookInit(){
     rotateBtn.addEventListener("click", rotate);
     openBtn.addEventListener("click", open);
-    
+    frontCover.addEventListener("mouseover", rotate2);
+    postReviewBtn.addEventListener("click", postReviewApi);
 }
 
 bookInit();
