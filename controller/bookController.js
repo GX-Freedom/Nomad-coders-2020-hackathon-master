@@ -5,6 +5,7 @@ import Review from "../model/review";
 import akin from "@asymmetrik/akin";
 import ColorThief from "colorthief";
 import fs from "fs";
+import copyFile from "fs-copy-file";
 
 
 export const getAddBook = (req, res) => {
@@ -14,7 +15,7 @@ export const getAddBook = (req, res) => {
 
 export const postAddBook = async(req, res) => {
     const {
-        body: {bookName, bookDescription, author, genre}, file:{path}
+        body: {bookName, bookDescription, author, genre}, file:{location}
     } = req;
     if(genre == ""){
         res.render(routes.addBook, {msg:"장르를 선택하세요!"})
@@ -24,7 +25,7 @@ export const postAddBook = async(req, res) => {
         title:bookName,
         author,
         description:bookDescription,
-        imageUrl:path,
+        imageUrl:location,
         enrolledBy: req.user.id,
         genre
     })
@@ -45,7 +46,15 @@ export const bookDetail = async(req, res) => {
     let booksFigure = 0;
     try{
     const book = await Book.findById(id).populate("enrolledBy").populate("review");
-    fs.renameSync(book.imageUrl,`${book.imageUrl}.jpeg`);
+    console.log(book.imageUrl)
+    
+    
+    
+ 
+// destination.txt will be created or overwritten by default.
+
+    
+    //fs.renameSync(book.imageUrl,`${book.imageUrl}.jpeg`);
     
     book.viewsFigure +=1;
     book.save();
@@ -55,7 +64,7 @@ export const bookDetail = async(req, res) => {
         booksFigure += 1;
         }
     })
-    
+    /*
     const pickedColor = ColorThief.getColor(`${book.imageUrl}.jpeg`,3)
             .then(color => {return color})
             .catch(err => {console.log(err)})
@@ -72,13 +81,13 @@ export const bookDetail = async(req, res) => {
         return hex.length === 1 ? '0' + hex : hex
       }).join('')
       const coverColor = rgbToHex(R,G,B);
-    await fs.renameSync(`${book.imageUrl}.jpeg`,book.imageUrl);
-
+    //await fs.renameSync(`${book.imageUrl}.jpeg`,book.imageUrl);
+*/
     const totalRate = (rateFigure/booksFigure).toPrecision(2);
-    res.render("book-detail" , {book, totalRate, coverColor, pageTitle:book.title});
+        res.render("book-detail" , {book, totalRate, /*coverColor*/ pageTitle:book.title});
     }catch(err){
-    console.log(err);
-    res.render("404");
+        console.log(err);
+        res.render("404",{pageTitle:"Can Not Found"});
     }
 }
 
@@ -148,8 +157,10 @@ export const postReview = async(req, res) => {
         rate,
         creator: user.username,
         creatorPhoto: user.profilePhoto,
-        email: user.email
+        email: user.email,
+        connectedBook:id
     })
+    console.log(review)
     book.review.push(review.id);
     book.save();
     user.reviews.push(review.id)
@@ -180,7 +191,7 @@ export const deleteBook = async(req, res) => {
     try {
         const book = await Book.findById(id);
         console.log(book.imageUrl)
-        fs.unlinkSync(book.imageUrl)
+        
         await Book.findByIdAndRemove({_id:id})
         res.redirect(routes.home);
     }catch(error){

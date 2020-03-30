@@ -15,39 +15,39 @@ const sortContent = document.getElementById("sortContent");
 const genreMenus = document.querySelectorAll("#genreMenus");
 
 let num = [];
+let rand = [];
 
 const Shuffle = async () => {
     let reco_list = await document.querySelectorAll(".reco_list");
 
-    let rand = [];
-    for (j = 0; j < 3; j++) {
-        rand[j] = Math.floor(Math.random() * reco_list.length);
-        // console.log(rand[j])
-    } 
 
-    let pos = 50;
+    for (j = 0; j < 2; j++) 
+    {
+        rand[j] = Math.floor(Math.random() * reco_list.length);
+    }
+    rand = Array.from(new Set(rand))
+    console.log(Array.from(new Set(rand)));
 
     for (i = 0; reco_list.length; i++) {
-        // console.log(reco_list[0]); 
-        //&& i != rand[1] && i != rand[2]
      
-        if  (i != rand[0] && i != rand[1] && i != rand[2])  {
-
-              reco_list[i].style.display = "none";
+        reco_list[i].style.display = "none";
+        if(rand.length<3)
+        {
+            for(j = 0; j< rand.length; j++)
+            {
+                reco_list[rand[j]].style.display = "block";
+            }
         }
-        else {
-            reco_list[i].style.display = "block";
-            reco_list[i].style.marginTop = "1rem";
-            reco_list[i].style.transform = `translateX(${pos}vh)`;
-            pos += 100;
-
-            num = i;
-                
-            console.log(num)
+        else
+        {
+            for (j = 0; j < 2; j++) 
+            {
+                rand[j] = Math.floor(Math.random() * reco_list.length);
+            }
+            rand = Array.from(new Set(rand))
         }
     }
-
-
+   
 }
 
 //page list
@@ -60,6 +60,7 @@ const Imglength = async () => {
 
         ul.appendChild(li);
         ul.style.display = "flex";
+        ul.style.flexDirection = "column";
         ul.style.width = "100%";
         ul.style.justifyContent = "center";
         ul.style.alignItems = "center";
@@ -119,16 +120,23 @@ const opacity = (e) => {
     }
 }
 
-const nextBook = async () =>{
+const prevBook = async(e)=>{
     let reco_list = await document.querySelectorAll(".reco_list");
-    console.log("wow "+num);
-    console.log("wow "+num[1]);
-    console.log("wow "+num[2]);
-    for(i = 0; i < num.length; i++)
+    opacity(e);
+    for(i = 0; i < reco_list.length; i++)
     {
-        reco_list[num[i]].style.transform = `translateX(-30vh)`;
-
+        reco_list[i].style.animation = `revers_recomment_slid 0.5s ease-in-out forwards`;
     }
+}
+
+const nextBook = async (e) =>{
+    let reco_list = await document.querySelectorAll(".reco_list");
+    opacity(e);
+    for(i = 0; i < reco_list.length; i++)
+    {
+        reco_list[i].style.animation = `recomment_slid 0.5s ease-in-out forwards`;
+    }
+   
 }
 
 function handleSortBtn(){
@@ -156,26 +164,13 @@ function handleSortBtn(){
 const homeInit = async () => {
     sortBtn.addEventListener("click", handleSortBtn);
     
-    // console.log(home_main_img.length);
+    Shuffle();
 
-    // Imglength();
-     Shuffle();
+    prev.addEventListener("click", prevBook);
+    next.addEventListener("click",nextBook);
+    icon_1.addEventListener("click",prevBook);
+    icon_2.addEventListener("click",nextBook);
 
-    prev.addEventListener("click", async (e) => {
-        // console.log("Prev"); 
-        // console.log(e.target); 
-        await opacity(e);
-        // await Shuffle();
-    });
-
-    next.addEventListener("click", async (e) => {
-        // console.log("Next");
-        await opacity(e);
-        // await Shuffle();
-        await nextBook();
-
-    });
-    
     for (i = 0; i < home_main_img.length; i++) {
 
         home_main_img[i].addEventListener("mouseover", async (e) => {
@@ -203,4 +198,7 @@ const homeInit = async () => {
     }
 }
 
-homeInit();
+if(prev)
+{
+    homeInit();
+}

@@ -10,94 +10,65 @@ const Div = styled.div`
     justify-content:center;
     align-items:center;
 `;
-
+  
 const Recom_div = styled.div`
-    width:100%; 
-    height:55vh;
-    display:grid;
     overflow:auto;
     overflow-x:hidden;
     grid-area: span 1/ span 6;
-    /*background: rgba(8, 177, 199, 0.767);*/
     background-image:url("https://cdn.pixabay.com/photo/2013/03/02/02/40/portrayal-89193_1280.jpg");
-    /* display:fixed;
-    position:absolute;
-    right:0;
-    top:0; */
-    /* margin-right:1rem;
-    margin-top:10.5vh; */
-    
     @media screen and (max-width: 1300px)
     { 
         height:100%;
         grid-area: span 1/ span 3;
     }
 `;
+
 const Recom_a = styled.a`
     width:100%;
     display:flex;
-    flex-direction:column;
-    text-align:center;
-    align-items:center;
-    justify-content:space-between;
     color:white;
-   
-  
+    /* justify-content:space-between; */
+    &>img{
+        width:350px;
+        height:450px;
+    }
     &>span{
         overflow: hidden;
-        text-overflow: ellipsis;    
+        text-overflow: ellipsis;   
     }
     span:nth-child(4){
         color:white;
         overflow: hidden;
         text-overflow: ellipsis;    
     }
-
 `;
-
-
-
-
 const Ul = styled.ul`
     display:flex;
-    /* flex-direction:column; */
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    height:100vh;
-    overflow:hidden;
-    overflow-x:hidden;
-    
-    @media screen and (max-width: 1000px)
-    { 
-        height:20vh;
-    }
-   
+    background-color: rgba(255,255,255,0.3);
+    width:1000%;
 `;
 
 const Li = styled.li`
     display:flex;
-    text-align:center;
-    align-items:center;
-    height:100%;
-    /* flex-direction:column; */
-    /* text-overflow: ellipsis; */
-    margin:0 1rem 0 0;
     border:1px solid red;
-    animation: slide 1s;
-    width:40vh;
-    @keyframes slide{
+    width:100vw;
+    @keyframes recomment_slid{
         0%{
-            transform:translateX(100vh);
+
         }
         100%{
+           transform: translateX(-100%);
         }
     }
-/* 
-    @media screen and (max-width: 700px)
-    { 
-      transform:translateX(-30vh);
-    } */
+    @keyframes revers_recomment_slid{
+        0%{
+           transform: translateX(-100%);
+
+        }
+        100%{
+           transform: translateX(0%);
+        }
+    }
 `;
 
 const Button = styled.button`
@@ -123,24 +94,17 @@ const Image = styled.img`
             box-shadow: 0px 13px 21px 3px rgba(0,0,0,0.75);
         }
     }
-    
-    @media screen and (max-width: 1300px)
-    { 
-        position:relative;
-        width:10rem;
-        height:100%;
-    }
-
+   
 `;
 const Reco_span = styled.span`
     display:flex;
     text-align:center;
-    justify-content:center;
-    align-items:center;
     overflow: hidden;
     text-overflow: ellipsis;    
     flex-direction:column;
-    margin-top:1vh;
+    margin-top:1rem;
+    margin-right:5rem;
+    width:500px;
 `;
 
 const A = styled.a`
@@ -174,16 +138,31 @@ const Grid_box = styled.div`
 `;
 
 const Text_box = styled.div`
-    width:15vw;
+    width:100%;
     display:flex;
     flex-direction:column;
     justify-content:center;
     text-align:center;
     overflow:hidden;
     text-overflow:ellipsis;
-   &>h1:first-child:hover, &>h2:nth-child(2):hover{
+
+    &>h1:first-child:hover, &>h2:nth-child(2):hover{
         text-decoration:underline;
+       
     }
+    @media screen and (max-device-width: 420px)
+    {
+        &>*{
+            margin:0.1rem;
+        }
+        &>h1, h2{
+         font-size:1.5rem;
+        }
+        &>div{
+         font-size:1.2rem;
+        }
+    }
+
 `;
 
 const Spantwo = styled.span`
@@ -194,21 +173,12 @@ const Spantwo = styled.span`
 
 const H_one = styled.h1`
     font-size: 1rem;
-    text-align:center;
-     @media screen and (max-width: 1300px)
-    { 
-        font-size: 0.7rem;
-    }
+  
 `;
 
 const H_two = styled.h2`
-        font-size: 0.7rem;
+    font-size: 0.7rem;
 
- @media screen and (max-width: 1300px)
-    {
-        font-size: 0.5rem;
-
-    }
 `;
 
 const Header_line = styled.div`
@@ -224,25 +194,6 @@ const Book = styled.a`
     justify-content:center;
     align-items:center;
     text-align:center;
-/* :hover{
-        img:first-child{
-            animation: Hover_img 0.3s linear forwards;
-            @keyframes Hover_img {
-                0%{
-                    box-shadow: 0;
-                    transform:translateY(0);
-                }
-                50%{
-                    transform:translateY(-2vh);
-                }
-                100%{
-                    box-shadow: 10px 10px 20px black;
-                    transform:translateY(-5vh);
-                    border-radius:5px;
-                }
-            } 
-    }
-} */
 
 `;
 const Button_Next = styled.button`
@@ -283,12 +234,12 @@ const Re_book_pos = styled.div`
 const SlideContainer = styled.section`
 
 
-`
+`;
 
 const GenreSort = styled.nav`
     margin-top:-5vh;
-    background-color:rgba(15, 15, 15, 0.425);
-    width: 10%;
+    background-color:rgba(0,0,0,0.3);
+    width: 10rem;
     height: 90vh;
     z-index: 100;
     position:fixed;
@@ -298,7 +249,7 @@ const GenreSort = styled.nav`
     align-items:center;
     display:none;
     color: white;
-    `
+`;
 
 const SlideNav = styled.section`
     position:fixed;
@@ -306,8 +257,6 @@ const SlideNav = styled.section`
     display:flex;
     align-items:center;
     height:80%;
-    width:0;
-    
     color:#F6B93B;
     margin-top:20vh;
 
@@ -315,7 +264,7 @@ const SlideNav = styled.section`
         0%{
             width:0;
         }100%{
-            width:10%;
+            width:9.5rem;
         }
     }
     
@@ -334,12 +283,12 @@ const SlideNav = styled.section`
             margin-left: 0;
         }
         100%{
-            margin-left: 20vh;
+            margin-left: 10rem;
         }
     }
     @keyframes revertSlideBtn {
         0%{
-            margin-left: 20vh;
+            margin-left: 10rem;
         }
         100%{
             margin-left: 0;
@@ -351,26 +300,29 @@ const SlideNav = styled.section`
 
 const animations = keyframes`
 
-`
+`;
 const Genre = styled.input`
-    width:10vw;
-    height:3vw;
+    width:9.5rem;
+    height:2.9rem;
     border:none;
     text-align: center;
     font-weight:700;
     font-size:2vh;
-    background-color:rgba(15, 15, 15, 0.425);
+    /* background-color:rgba(15, 15, 15, 0.425); */
+    background-color:rgba(0,0,0,0.3);
     color:white;
     cursor: pointer;
     :hover{
         color:black;
         background-color:#F6B93B;
     }
-`
+   
+
+`;
 
 const SlideBtn = styled.span`
-cursor:pointer;
-`
+    cursor:pointer;
+`;
 
 
 function Home(props) {
@@ -380,14 +332,14 @@ function Home(props) {
     function recommendList() {
         if (props.recomendBooks) {
             return (
-                <h4 style={{ marginTop: "6rem", color: "white", display: "flex", justifyself: "flex-start" }}>
+                <h4 style={{ marginTop: "6rem", color: "white", display: "flex", justifySelf: "flex-start" }}>
                     {props.user.username}님만을 위한 추천 리스트 :
                 </h4>
             )
         }
         else {
             return (
-                <h1 style={{ marginTop: "6rem", color: "white", display: "flex", justifyself: "flex-start" }}>로그인 하시면 북마크 기능에 기반한 추천리스트를 받아보실 수 있습니다</h1>
+                <h1 style={{ marginTop: "6rem", color: "white", display: "flex", justifySelf: "flex-start" }}>로그인 하시면 북마크 기능에 기반한 추천리스트를 받아보실 수 있습니다</h1>
             )
         }
     }
@@ -406,18 +358,23 @@ function Home(props) {
                             <Li className="reco_list">
                                 <Recom_a href={`/${props.routes.bookDetail(argument.id)}`}>
                                     <Image height="40vh" width="30vh" src={argument.imageUrl} />
-                                    <Reco_span>
-                                        제목:<br />
-                                        {argument.title}
-                                    </Reco_span>
-                                    <Reco_span>
-                                        작가:<br />
-                                        {argument.author}
-                                    </Reco_span>
-                                    <Reco_span>
-                                        본문:<br />
-                                        {argument.description}
-                                    </Reco_span>
+                                    <div style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"flex-end"}}>
+                                        <Reco_span>
+                                            제목: 
+                                            {/* <br /> */}
+                                            {argument.title}
+                                        </Reco_span>
+                                        <Reco_span>
+                                            작가: 
+                                            {/* <br /> */}
+                                            {argument.author}
+                                        </Reco_span>
+                                        <Reco_span>
+                                            본문: 
+                                            {/* <br /> */}
+                                            {argument.description}
+                                        </Reco_span>
+                                    </div>
                                 </Recom_a>
                             </Li>
                         )
@@ -494,8 +451,8 @@ function Home(props) {
                                 <div>분류 : {sortedBy}</div>
                             </Text_box>
                         </Book>
-                        <Spantwo>({book.enrolledBy[0].username}님이 등록)</Spantwo>
-                        <Spantwo>{JSON.stringify(book.createdAt)}</Spantwo>
+                        <Spantwo></Spantwo>
+                        <Spantwo></Spantwo>
                         {/* <Spantwo>{book.description}</Spantwo> */}
                     </div>
                 </Header_line>
@@ -568,7 +525,7 @@ function Home(props) {
                         <Re_book_pos>
                             <i id="icon_1" className="fas fa-circle"></i>
                             <i id="icon_2" className="fas fa-circle"></i>
-                            <i id="icon_3" className="fas fa-circle"></i>
+                            {/* <i id="icon_3" className="fas fa-circle"></i> */}
                         </Re_book_pos>
                         <Button id="btn_next">
                             Next

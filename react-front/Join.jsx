@@ -80,7 +80,7 @@ const Div = styled.div`
     }
 
     /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
-	background-size: 400% 400%;
+	/* background-size: 400% 400%; */
     /* animation: gradient1 15s ease infinite; */
 
     @keyframes gradient1 {
@@ -107,12 +107,13 @@ const Div = styled.div`
 
         }
     }
+
 `;
 
 
 const A = styled.a`
-display:flex;
-flex-direction:column;
+    display:flex;
+    flex-direction:column;
 
     &>img{
     }
@@ -125,20 +126,17 @@ flex-direction:column;
 const Form = styled.form`
     display:flex;
     flex-direction:column;
+    justify-content:center;
+    align-items:center;
 `;
 
 const Input = styled.input`
     margin: 1.2vh;
     font-size: 2vh;
     width:100%;
-    /* :focus{
-
-        background-color:#fffa65;
-        color:#2bcbba;
-    } */
     background:none;
     border: solid 0px;
-    border-bottom: solid 0.15vh white;
+    border-bottom: solid 0.15vh white; 
     
     ::placeholder{
         color: white;
@@ -152,8 +150,7 @@ const Input = styled.input`
         color:#F6B93B;
         text-align:center;
         
-    }
-        
+        }
         @keyframes makeBorder {
             0%{
                 background:none;
@@ -193,11 +190,20 @@ const Span_line = styled.span`
     width:100%;
     margin: 0 2vh;
     color:white;
-    font-size:1vh;
+    font-size:0.8rem;;
     font-weight:300;
     :hover{
         font-weight:500;
         text-decoration:underline;
+    }
+    
+    @media screen and (max-width: 700px)
+    {
+        font-size:1.5rem;
+    } 
+    @media screen and (max-device-width: 420px)
+    {
+        font-size:2rem;
     }
 `;
 const Bottom_box = styled.div`
@@ -248,12 +254,8 @@ function Join(props) {
                     </div>
                     <Bottom_box>
                         <div>
-                            <input type="checkbox" name="news_check" />
-                            <Check_span >최신 소식을 이메일로 받겠습니다.</Check_span>
-                        </div>
-                        <div>
                             <Span_line>
-                                계정이 이미 있으신가요
+                                계정이 이미 있으신가요?
                             </Span_line>
                             <a href={props.routes.login}>
                                 <Span_line>

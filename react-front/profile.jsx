@@ -5,17 +5,21 @@ import { BaseLayout } from "./globalStyles/layout";
 import styled, { createGlobalStyle } from "styled-components";
 import GlobalStyle from "./globalStyles/ResetCss";
 
-const Image = styled.img`
+const BookImage = styled.img`
     width:10vh;
     height:10vh;
-    border-radius:100%;
-    
 `;
 
+const ProfileImage = styled.img`
+width:10vh;
+    height:10vh;
+    border-radius: 100%;
+`
+
 const Div = styled.div`
-    position:absolute;
+    position:relative;
     width:100%;
-    height:100%;
+    height:100vh;
     align-self: center;
     display:flex;
     flex-direction:column;
@@ -23,11 +27,12 @@ const Div = styled.div`
     align-items:center;
     background-repeat:repeat;
     background-size:cover;
-    
+    background-color:#F9F7D6;
+    /*background-image:url("https://cdn.pixabay.com/photo/2017/07/26/17/41/watercolour-2542465_960_720.jpg"); */
 `;
 
-const A = styled.a`
-    display:flex;
+const Book = styled.a`
+    display:block;
     flex-direction:column;
     text-align:center;
     justify-content:center;
@@ -39,6 +44,8 @@ const A = styled.a`
     text-overflow:ellipsis;
     transform-style: preserve-3d;
     perspective: 650vh;
+    font-size:1rem;
+    color:blue;
     &>span:nth-child(2){
         overflow:hidden;
         text-overflow:ellipsis;
@@ -61,7 +68,7 @@ const A = styled.a`
         opacity:1;
         }
     }
-
+    /*
     &>img:first-child{
         
         &:hover{
@@ -82,85 +89,255 @@ const A = styled.a`
             }
         }
     }
-    @media screen and (max-width: 1300px)
-    { 
-        font-size:1.5vh;
-        
-    }
-    @media screen and (max-width: 600px)
-    {
-        font-size:1vh;
-    }
-`;
+    */
 
-const Grid_area = styled.div`
-    display:grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 1rem;
-    @media screen and (min-width: 300px){
-        grid-template-columns: repeat(3, 1fr);
+    @media screen and (max-width: 700px)
+    { 
+        &>span:nth-child(2){
+            font-size:1rem;
+        }
+        &>span:nth-child(3){
+            font-size:1rem;
+        }
     }
-    @media screen and (min-width: 1000px){
-        grid-template-columns: repeat(5, 1fr);
+
+    @media screen and (max-device-width: 420px)
+    {
+        &>span:nth-child(2){
+            font-size:1.5rem;
+        }
+        &>span:nth-child(3){
+            font-size:1.5rem;
+        }
     }
+`
+
+const BookList = styled.div`
+    display: none;
+    flex-wrap:wrap;
+    justify-content:center;
+    
 `;
 
 const Background_image = styled.div`
-    position:absolute;
+    position:relative;
     z-index:-1;
     width:100%;
     height:100%;
-    background-repeat:repeat;
-    background-size:100% 100%;
+    top:10;
+    background-size:cover;
     background-image:url("https://cdn.pixabay.com/photo/2017/07/26/17/41/watercolour-2542465_960_720.jpg"); 
-
+    
     @media screen and (min-height: 100vh)
     {
-        height:150vh;
+        height:100vh;
     }
 `;
 const Flex_div = styled.div`
     width:100%;
+    height:100%;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     margin-top:${props => props.marginTop || "0"};
-
+    color:grey;
+    
 `;
+
+const Review_box = styled.div`
+    position:relative;
+    bottom:0;
+    width:100%;
+    display:none;
+    text-align:center;
+    flex-wrap:wrap;
+    margin:0 auto;
+    justify-content:center;
+    align-items:center;
+`;
+
+const MyComments = styled.div`
+    margin:15px;
+    border:1px solid #F6B93B;
+    box-shadow: 0px 3.5px 7px 5px rgba(0,0,0,0.75);
+    border-radius:5px;
+
+    :hover{
+        cursor:pointer;
+
+    }
+
+    @keyframes myComment{
+        0%{
+
+        }
+        100%{
+            transform:translateZ(100px);
+        }
+    }
+`;
+
+const UploadedBookInfo = styled.div`
+display:flex;
+`
+
+const UploadedNum = styled.div`
+width:20px;
+height:20px;
+background-color:white;
+border-radius:100%;
+color:yellowgreen;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
+const EditProfileBtn = styled.a`
+
+border-radius:20px;
+background-color:#F7C04E;
+color:white;
+width: 15vh;
+height: 4vh;
+display:flex;
+align-items:center;
+justify-content:center;
+:hover{
+box-shadow: 3px 3px 3px #F7C04E;
+
+}
+`
+const Username = styled.span`
+
+`
+
+const Email = styled.span`
+
+`
+
+
+const UploadedBookTitle = styled.span`
+    cursor:pointer;
+`
+const ProfileArea = styled.div`
+    display: flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    height:30vh;
+`;
+
+const BookTitle = styled.div`
+
+`
+
+const BookAuthor = styled.div`
+
+`
+const UserInfoArea = styled.section`
+    display : flex;
+
+`
+
+const ReviewArea = styled.section`
+display:flex;
+flex-direction:column;
+`
+
+const ReviewBtn = styled.span`
+cursor:pointer;
+`
+const ReviewdNum = styled.div`
+width:20px;
+height:20px;
+background-color:white;
+border-radius:100%;
+color:yellowgreen;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
+const ReviewHeader = styled.div`
+display:flex;
+`
 class profile extends React.Component {
     render() {
-
+        let translated
+        function translateTime(createdAt){
+            translated = `${createdAt.getYear()+1900}년 ${createdAt.getMonth()+1}월 ${createdAt.getDate()}일`;
+        }
+        
         return (
             <BaseLayout>
                 <GlobalStyle />
                 {Header(this.props)}
                 <Div>
                     <Flex_div marginTop="10vh">
-                        <Image src={this.props.currentUser.profilePhoto} />
-                        <A href={this.props.routes.editUser}>
+                        <ProfileArea>
+                        <ProfileImage src={this.props.currentUser.profilePhoto} />
+                        <Username>{this.props.currentUser.username}</Username>
+                        <Email>{this.props.currentUser.email}</Email>
+                        <EditProfileBtn href={this.props.routes.editUser}>
                             프로필 수정
-                        </A>
-                        <h2 >{this.props.currentUser.username}
-                            님이 등록한 책 리스트:
-                        </h2>
-                        <Grid_area>
+                        </EditProfileBtn>
+                    </ProfileArea>
+                    <UserInfoArea>
+                        <UploadedBookInfo>
+                        <UploadedBookTitle id="uploadedBooksBtn">
+                            등록하신 책 
+                        </UploadedBookTitle>
+                        <UploadedNum>
+                            {this.props.currentUser.uploadedBooks.length}
+                        </UploadedNum>
+                        </UploadedBookInfo>
+                        <BookList id="bookList">
                             {this.props.currentUser.uploadedBooks.map(book => {
                                 return (
-                                    <A href={`/${this.props.routes.bookDetail(book.id)}`}>
-                                        <Image src={`/${book.imageUrl}`} alt="" />
-                                        <span>{book.title}</span>
-                                        <span>{book.author}</span>
+                                    <Book id="book" href={`/${this.props.routes.bookDetail(book.id)}`}>
+                                        <BookImage src={book.imageUrl} />
+                                        <BookTitle>{book.title}</BookTitle>
+                                        <BookAuthor>{book.author}</BookAuthor>
                                         {/* <h4 style={{height:"20vh"}}>{book.description}</h4> */}
-                                    </A>
+                                    </Book>
                                 )
                             })}
-                        </Grid_area>
+                        </BookList>
+                        <ReviewArea>
+                        <ReviewHeader>
+                        <ReviewBtn id="reviewBtn">
+                           리뷰
+                        </ReviewBtn >
+                        <ReviewdNum>
+                            {this.props.currentUser.reviews.length}
+                        </ReviewdNum>
+                        </ReviewHeader>
+                        <Review_box id="reviewList">
+                            {this.props.currentUser.reviews.map(review => {
+                                return (
+                                        <MyComments className="MyComments">
+                                            <h3>
+                                                {review.content}
+                                            </h3>
+                                            <h3>
+                                                {review.rate}
+                                            </h3>
+                                            <h3>
+                                                {translateTime(review.createdAt)}
+                                                {translated}
+                                            </h3>
+                                        </MyComments>
+                                        )
+                            })}
+                        </Review_box>
+                        </ReviewArea>
+                    </UserInfoArea>
                     </Flex_div>
                 </Div>
-                <Background_image>
+                
+                <script src="/vanilla/profile.js"></script>
 
-                </Background_image>
             </BaseLayout>
         )
     }

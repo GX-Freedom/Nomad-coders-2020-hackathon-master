@@ -14,7 +14,7 @@ passport.use(User.createStrategy());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `http://localhost:4000${routes.googleAuthCallback}`
+    callbackURL: `https://just-read-it.herokuapp.com${routes.googleAuthCallback}`
 },
 async function (accessToken, refreshToken, profile, cb) {
    /* console.log(profile, cb)
@@ -34,7 +34,7 @@ async function (accessToken, refreshToken, profile, cb) {
         const user = await User.findOne({ email })
         if (user) {
             user.googleId = id;
-            user.profilePhoto = picture;
+            
             user.save();
             return cb(null, user)
         }
@@ -56,7 +56,7 @@ async function (accessToken, refreshToken, profile, cb) {
 passport.use(new NaverStrategy({
     clientID: process.env.NAVER_CLIENT_ID,
     clientSecret: process.env.NAVER_CLIENT_SECRET,
-    callbackURL: `http://localhost:4000${routes.naverAuthCallback}`
+    callbackURL: `https://just-read-it.herokuapp.com${routes.naverAuthCallback}`
 },
 async function(accessToken, refreshToken, profile, cb){
         
@@ -66,7 +66,7 @@ async function(accessToken, refreshToken, profile, cb){
         const user = await User.findOne({email})
         if (user) {
             user.naverId = id;
-            user.profilePhoto = profile_image;
+            
             user.save();
             return cb(null, user)
         }
@@ -96,7 +96,7 @@ passport.use(new SlackStrategy.Strategy({
         const user = await User.findOne({email})
         if (user) {
             user.slackId = id;
-            user.profilePhoto = image_512;
+           
             user.save();
             return cb(null, user)
         }

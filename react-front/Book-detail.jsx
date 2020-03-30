@@ -48,8 +48,10 @@ class bookDetail extends React.Component {
             if (user) {
                 return (
                     <form action={routes.postReview(book.id)} id="postReview" method="post">
-                        <InputReview type="textarea" autoComplete="off" name="reviewContent" placeholder="책에 대한 평가를 남겨주세요!"  rows="1" />
-                        <InputRate type="number" name="rate" placeholder="평점을 남겨주세요" min={0} max={10} value={0} step={.1} />
+                        <input type="text" id="yourName" name={user.username} style={{display:"none"}}/>
+                        <input type="text" id="profileUrl" name={user.profilePhoto} style={{display:"none"}}/>
+                        <InputReview type="textarea" autoComplete="off" name="reviewContent" id="reviewContent" placeholder="책에 대한 평가를 남겨주세요!"  rows="1" />
+                        <InputRate type="number" name="rate" placeholder="평점을 남겨주세요" id="reviewRate" min={0} max={10} value={0} step={.1} />
                         <ReviewSubmit id="postReviewBtn" type="submit" value="등록" />
                     </form>
                 )
@@ -86,8 +88,12 @@ class bookDetail extends React.Component {
             }
         }
         totalPoint();
-
-
+        let translated
+        
+        function translateTime(createdAt){
+            translated = `${createdAt.getYear()+1900}년 ${createdAt.getMonth()+1}월 ${createdAt.getDate()}일`;
+        }
+        translateTime(book.createdAt)
         return (
             <BaseLayout>
             {console.log(this.props.coverColor)}
@@ -98,9 +104,9 @@ class bookDetail extends React.Component {
                         <Middle>
                             <Book id="book" coverColor={this.props.coverColor}>
                                 <div id="frontCover">
-                                    <img id="coverImg"src={`/${book.imageUrl}`} width="100%" height="100%" />
-                                    </div>
-                                    <section><p>{book.description}</p></section>
+                                    <img id="coverImg"src={`${book.imageUrl}`} width="100%" height="100%" />
+                                </div>
+                                <section><p>{book.description}</p></section>
                                 <div></div>
                                 <div></div>
                                 <div>
@@ -108,21 +114,22 @@ class bookDetail extends React.Component {
                                         <h1>{book.title} {totalStar} ({this.props.totalRate} / 10)</h1>
                                         <h5>{book.author}</h5>
                                         <h4>{book.likeFigure}명이 서재에 보관 중</h4>
-                                        <h3>{JSON.stringify(book.createdAt)}</h3>
+                                        <h3>{translated}</h3>
                                         <h3> 조회수 {book.viewsFigure}회 </h3>
                                     </span>
                                 </div>
-                                <div ><bdi id="bookSpine1">{book.author}</bdi><bdi id="bookSpine2">{book.title}</bdi></div>
+                                <div ><bdi id="bookSpine1">{book.author}</bdi>
+                                <bdi id="bookSpine2">{book.title}</bdi></div>
                                 <div></div>
                             </Book>
                             
                             <CommentSpace>
-                                <Comments>
+                                <Comments id="commentList">
                                     {book.review.map((item) => {
-
+                                        
                                         let star = "";
-
-
+                                        let vacantStar=0;
+                                        translateTime(item.createdAt)
                                         const starPoint = () => {
 
                                             if (item.rate) {
@@ -137,9 +144,13 @@ class bookDetail extends React.Component {
                                                     }
                                                 }
                                             }
+                                            vacantStar = 5-star.length;
+                                                   for(let j=0; j<vacantStar; j++){
+                                                        star+="☆"} 
                                         }
                                         starPoint();
                                         return (
+                                            
                                             <Comment>
                                                 <Avatar>
                                                 <img src={item.creatorPhoto} width="50vh" />
@@ -149,9 +160,10 @@ class bookDetail extends React.Component {
                                                 <Content>{item.content}</Content>
                                                 <Star>{star}({item.rate})</Star>
                                                 
-                                                <h3 id="commentedAt">{JSON.stringify(item.createdAt)}</h3>
+                                                <h3>{translated}</h3>
                                                 {UserWhoRated(item)}
                                                 </Review>
+                                                
                                             </Comment>
                                         )
                                     })}
@@ -167,14 +179,21 @@ class bookDetail extends React.Component {
                             <h5>{book.description}</h5>
                         </BookIntroduce>
                      */}
+                        <ControlBook>
+                            <ControlBtn id="rotateBtn">
+                                <i class="fas fa-undo"></i>
+                                책 돌리기
+                            </ControlBtn>
+                            <ControlBtn id="openBtn">
+                                <i class="fas fa-book-open"></i>
+                                책 펼치기
+                            </ControlBtn>
+                            <CheckUser />
+                        </ControlBook>
                     </BookInfos>
-                    <ControlBook>
-                            <ControlBtn id="rotateBtn"><i class="fas fa-undo"></i>책 돌리기</ControlBtn>
-                            <ControlBtn id="openBtn"><i class="fas fa-book-open"></i>책 펼치기</ControlBtn>
-                            </ControlBook>
-                    <CheckUser />
                 </Background>
-                <script src="/vanilla/bookDetail.js"></script>
+                    <script src="/vanilla/bookDetail.js"></script>
+                    
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
             </BaseLayout>
         )
@@ -205,20 +224,21 @@ justify-content:center;
 `
 
 const Background = styled.section`
-background-image: url("https://cdn.pixabay.com/photo/2017/10/16/02/49/teddy-bear-2855982_1280.jpg");
-background-size: cover;
-padding-bottom: 20vh;
+    background-image: url("https://cdn.pixabay.com/photo/2017/10/16/02/49/teddy-bear-2855982_1280.jpg");
+    background-size: cover;
+    height:100%;
+
 `
 
 const Book = styled.section`
    
     width: 25vw;
     height: 70vh;
-    
+    transform-style: preserve-3d;
     :hover{
-    animation: book-rotate 0.5s ;
-    animation-fill-mode: forwards;
-}
+        animation: book-rotate 0.5s ;
+        animation-fill-mode: forwards;
+    }
     /*:active{
     animation: book-rotate2 .5s ;
     animation-fill-mode: forwards;
@@ -228,8 +248,13 @@ const Book = styled.section`
     animation-fill-mode: forwards;
     perspective: 130vw;
     }*/
-    transform-style: preserve-3d;
-
+    @media screen and (max-device-width: 420px) 
+    {
+        position:relative;
+        width: 100%;
+        height:100%;
+        top:15vh;
+    } 
     
     div:nth-child(1){
         position: absolute;
@@ -244,11 +269,24 @@ const Book = styled.section`
         box-shadow: 10px 10px 10px 0.5px;
         transform: translateZ(2vw);
         transform-origin: 0 0;
-        
-        
-        
+            
+        @media screen and (max-width: 1200px){
+            width: 33vw;
+        }
+
+        @media screen and (max-width: 700px){
+            width: 55vw;
+        }
+     
+        @media screen and (max-device-width: 420px) 
+        {
+            width: 500px;
+            height: 700px;
+        }
     }
+
     section:nth-child(2){
+        justify-content:center;
         margin-top:1vw;
         margin-left:0.2vw;
         position: absolute;
@@ -261,6 +299,20 @@ const Book = styled.section`
         p:nth-child(1){
             margin: 3vw;
         }
+            
+        @media screen and (max-width: 1200px){
+            width: 30vw;
+        }
+
+        @media screen and (max-width: 700px){
+            width: 52vw;
+        }
+     
+        @media screen and (max-device-width: 420px) 
+        {
+            width: 500px;
+            height: 700px
+        }
     }
 
  
@@ -268,7 +320,7 @@ const Book = styled.section`
         position: absolute;
         width: 25vw;
         height: 70vh;
-        
+   
         background-color: ${props => props.coverColor ? props.coverColor : "black"};
         font-size: 2vh;
         display:flex;
@@ -277,6 +329,7 @@ const Book = styled.section`
         background-position: center center;
         transform: rotateY(180deg) rotateZ(0deg) translateZ(2vw);
         border-right: 0;
+
         span:nth-child(1){
             position:absolute;
             font-family: 'Gugi', cursive;
@@ -284,6 +337,20 @@ const Book = styled.section`
             color: ${props => props.coverColor ? props.coverColor : "black"};
             -webkit-filter: invert(100%);
             filter: invert(100%);
+        }
+            
+        @media screen and (max-width: 1200px){
+            width: 33vw;
+        }
+
+        @media screen and (max-width: 700px){
+            width: 56vw;
+        }
+     
+        @media screen and (max-device-width: 420px) 
+        {
+            width: 500px;
+            height: 700px
         }
     }
     div:nth-child(6){
@@ -317,10 +384,17 @@ const Book = styled.section`
             filter: invert(100%);
             font-weight:700;
             overflow:hidden;
+          
+        }
+      
+        @media screen and (max-device-width: 420px) 
+        {
+            width: 4vw;
+            height: 700px
         }
     }
-    
-@keyframes book-rotate {
+        
+    @keyframes book-rotate {
     0%{
         transform: rotateY(0deg);
     }
@@ -333,18 +407,18 @@ const Book = styled.section`
     }
 }
 
-@keyframes revert-rotate2{
-    0%{
-        transform: rotateY(30deg);
+    @keyframes revert-rotate2{
+        0%{
+            transform: rotateY(30deg);
+        }
+        70%{    
+            box-shadow: 0px 0px 0px;
+        }
+        100%{
+            transform: rotateY(0deg);
+            
+        }
     }
-    70%{    
-        box-shadow: 0px 0px 0px;
-    }
-    100%{
-        transform: rotateY(0deg);
-        
-    }
-}
 
 @keyframes book-rotate2 {
     from,to{
@@ -428,14 +502,14 @@ const Book = styled.section`
     }
 }
 
-`
+`;
 
 
 
 const BookInfos = styled.div`
-width: 100%;
-height: 100vh;
-
+    width: 100%;
+    height: 100vh;
+;
 `
 const Middle = styled.div`
 
@@ -445,88 +519,214 @@ align-items:center;
 width: 100%;
 height: 100%;
 
-`
+`;
 
 const CommentSpace = styled.section`
-
     display: flex;
     flex-direction: column;
     box-shadow: 10px 5px 20px #00c8eb;
     width: 25vw;
-        height: 70vh;
+    height: 70vh;
     border-radius: 20px;
     align-items: center;
     background-color:black;
-    `
+
+    @media screen and (max-device-width: 450px) 
+    {
+        position:absolute;
+        bottom:-15vh;
+        width:100%;
+        height:30rem;
+        &>form:nth-child(2){
+            justify-self:center;
+            display:flex;
+            input{
+                width:50%;
+                font-size:2rem;
+            }
+        }
+    }
+    @media screen and (max-width: 700px){
+        position:absolute;
+        bottom:-35rem;
+        width:100%;
+        height:20rem;  
+        &>form:nth-child(2){
+            justify-self:center;
+            display:flex;
+            input{
+                width:50%;
+                font-size:2rem;
+            }
+        }
+    }
+`;
 const Comments = styled.ul`
-    
-    
-overflow: auto;
-width: 100%;
-height:100%;
-background-image: url('https://neilpatel.com/wp-content/uploads/2015/03/comments.jpg');
-background-size: cover;
-background-position: center center;
-display: flex;
-flex-direction: column;
-align-items: center;
-border-radius: 20px 20px 20px 20px;
+    overflow: auto;
+    width: 100%;
+    height:100%;
+    background-color:#B3E7FF;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px 20px 20px 20px;
+    >newcomment{
+        display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color:black;
+    margin-top:0.3rem;
+    background-color: rgba(255,255,255,0.3);
+    width:25vw;
+    >newavatar{
+        display:flex;
+    flex-direction:column;
+        >profileimg{
+
+        }
+        >username{
+
+        }
+    }
+    >newreview{
+        display:flex;
+    flex-direction:column;
+    background-color:#F6B93B;
+    border-radius:0px 20px 20px 20px;
+    text-align:center;
+    >newcontent{
+        font-weight:700;
+    width:15vw;
+    overflow:hidden;
+    }
+    >newstar{
+        color:blue;
+    display:flex;
+    justify-content:center;
+    }
+    >newDate{
+
+    }
+    }
+    }
+
+
+
 `
 
 const Comment = styled.div`
-display:flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center;
-color:black;
-margin-top:0.3rem;
-background-color: rgba(255,255,255,0.3);
-width:25vw;
-`
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color:black;
+    margin-top:0.3rem;
+    background-color: rgba(255,255,255,0.3);
+    width:25vw;
+    text-align:center;
+
+    @media screen and (max-device-width: 450px) 
+    {
+      width:100%;
+      justify-content:space-between;
+      &>section:first-child{
+          &>img{
+              width:10rem;
+          }
+          font-size:2rem;
+          justify-content:center;
+          padding:10px;
+      }
+      &>section:last-child{
+          width:100%;
+          &>*{
+              font-size:2rem;
+            }
+            &>form>input{
+                font-size:2rem;
+          }
+      }
+    }
+    
+    @media screen and (max-width: 700px){
+        width:100%;
+        justify-content:space-between;
+        &>section:first-child{
+            &>img{
+                width:10rem;
+            }
+            font-size:1.25rem;
+            justify-content:center;
+            padding:10px;
+        }
+        &>section:last-child{
+            width:100%;
+            &>*{
+                font-size:1.25rem;
+                }
+                &>form>input{
+                    font-size:1.25rem;
+            }
+        }
+    }
+
+`;
 
 const InputReview = styled.textarea`
-border: solid 2px black;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-width: 20vw;
-height:2.5vh;
-border-radius:15px;
-:focus{
-    
-    animation: focus 0.5s;
-    animation-fill-mode:forwards;
-    ::placeholder{
-            opacity:0;
-        }
-}
+    border: solid 2px black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    width: 20vw;
+    height:2.5vh;
+    border-radius:15px;
+    :focus{
+        
+        animation: focus 0.5s;
+        animation-fill-mode:forwards;
+        ::placeholder{
+                opacity:0;
+            }
+    }
 
-@keyframes focus {
-    0%{
-        
-        height:0vh;
-       
+    @keyframes focus {
+        0%{
+            height:0vh;
+        }
+        100%{
+            height:20vh;
+        }
     }
-    100%{
-        height:20vh;
-        
-        
+
+    @media screen and (max-device-width: 450px) 
+    {
+        width: 500px;
+        height:5vh;
+        font-size:2rem;
     }
-}
+    
+    @media screen and (max-width: 700px){
+        width: 500px;
+        height:5vh;
+        font-size:1.25rem;
+    }
 `
 const InputRate = styled.input`
-border: solid 2px black;
-text-align:center;
+    border: solid 2px black;
+    text-align:center;
 `
 const ReviewSubmit = styled.input`
-border: solid 2px black;
-text-align:center;
+    border: solid 2px black;
+    text-align:center;
 `
 
 const BookIntroduce = styled.section`
-margin-bottom: -15vw;
-background-color:rgba(255,255,255,0.3);
+    margin-bottom: -15vw;
+    background-color:rgba(255,255,255,0.3);
 `
 
 const User_img = styled.img`
@@ -534,11 +734,55 @@ const User_img = styled.img`
 `;
 
 const ControlBook = styled.div`
-
+    position:relative;
+    bottom:90px;
+    @media screen and (max-device-width: 420px)
+    {
+        bottom:43vh;
+        &>*{
+            font-size:2rem;
+            margin:0.3rem;
+        }
+        &>form>*{
+            display:flex;
+            flex-wrap:wrap;
+            font-size:2rem;
+            margin:0.3rem;
+            float:left;
+        }
+        &>form:nth-child(3){
+            &>textarea:nth-child(2){
+                width:100%;
+                height:15rem;
+                font-size:2rem;
+            }
+        }
+    }
+    @media screen and (max-width: 700px)
+    {
+        &>*{
+            font-size:1.25rem;
+            margin:0.3rem;
+        }
+        &>form>*{
+            display:flex;
+            flex-wrap:wrap;
+            font-size:1.25rem;
+            margin:0.3rem;
+            float:left;
+        }
+        &>form:nth-child(3){
+            &>textarea:nth-child(2){
+                width:100%;
+                height:10rem;
+                font-size:1.25rem;
+            }
+        }
+    }
 `
 
 const ControlBtn = styled.button`
-
+ 
 `
 
 export default bookDetail

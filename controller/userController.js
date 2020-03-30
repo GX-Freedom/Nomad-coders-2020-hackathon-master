@@ -111,7 +111,8 @@ export const profile = async(req, res) => {
         params: {id}
     } = req;
     const currentUser = await User.findById(id).populate("uploadedBooks").populate("reviews");
-    res.render("profile", {currentUser})
+    const connectedBook = await Book.findById(currentUser.reviews[0].connectedBook);
+    res.render("profile", {currentUser, connectedBook})
 }
 export const search = async(req, res) => {
     const books = await Book.find({})
@@ -142,7 +143,7 @@ export const postEditUser = async(req, res) => {
         try{
         await User.findByIdAndUpdate(req.user.id,
                 {username,
-                profilePhoto: file ? `/${file.path}` : req.user.profilePhoto
+                profilePhoto: file ? `${file.location}` : req.user.profilePhoto
                 }
                 );
             res.redirect(`/${routes.profile(req.user.id)}`)
