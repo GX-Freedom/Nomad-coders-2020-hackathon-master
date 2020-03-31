@@ -8,7 +8,7 @@ import GlobalStyle from "./ResetCss";
 
 const Div = styled.div`
   width:100%;
-  height:10vh;
+  height:60px;
   position:fixed;
   
   display:flex;
@@ -18,7 +18,7 @@ const Div = styled.div`
   /*position:fixed;*/
   z-index:5;
   scroll-behavior: smooth;
-
+  align-items:center;
   :hover{
     animation:hovers1 0.3s linear;
     animation-fill-mode:forwards;
@@ -74,7 +74,7 @@ const Div = styled.div`
 const Imag_styles = styled.img`
   position: relative;
   width:8rem;
-  height:10vh;
+  height:63px;
   /* 15% */
   display:inline-block;
   /* filter: grayscale(20%); */
@@ -118,8 +118,8 @@ const Logo_a = styled.a`
 `;
 
 const A = styled.a`
-   display:flex;
-  align-items:center;
+  display:flex;
+  align-items:space-between;
   margin:0.7rem;
   text-decoration:none;
   color:${props => props.color || "white"};
@@ -138,16 +138,10 @@ const A = styled.a`
     }
   }
 
-  *>span:nth-child(2){
-    :hover{
-      /* color:#1e3799; */
-     
-    }
-  }
-
   &>i:nth-child(1){
     margin-right:1vw;
     color:#f6b93b;
+    position:relative;
     &:hover{
       /* color:#EA2027; */
       color:black;
@@ -158,14 +152,9 @@ const A = styled.a`
 
 const Search_box = styled.div`
   width:100%;
-  position:absolute;
-  top:3%;
-  right:0;
   display:flex;
   justify-content: center;
-  
   align-items:center;
-  /* right:-30%; */
 `;
 
 const Input = styled.input`
@@ -217,21 +206,21 @@ const Sinput = styled.input`
    
   @keyframes hover_animation {
     0% {
-      box-shadow: 0 30px 60px -12px rgba(70, 70, 209, 0.25),
+      box-shadow: 0 30px 60px -12px #F6B93B,
         0 18px 36px -18px rgba(0, 0, 0, 0.3),
         0 -12px 36px -8px rgba(0, 0, 0, 0.025);
     }
  
     50% {
-        box-shadow: 0px 60px 17px -38px rgba(73,62,224,1);
+        box-shadow: 0px 60px 17px -38px #F6B93B;
     }
     100% {
-        box-shadow: 1px 20px 10px -20px rgba(73,62,224,1);
+        box-shadow: 1px 20px 10px -20px #F6B93B;
     }
   }
 
   &:hover{
-    animation: hover_animation 1.5s linear infinite forwards;
+    animation: hover_animation 2s ease-in-out infinite forwards;
   } 
 
     &:focus{
@@ -299,8 +288,8 @@ const Binput = styled.input`
 `;
 
 const Prifile_img = styled.img`
-  width:7vh;
-  height:7vh;
+  width:60px;
+  height:55px;
   position:absolute;
   right:0;
   top:0;
@@ -326,33 +315,17 @@ const Icon_box = styled.div`
     color:#F6B93B;
   }
 
-  ul:nth-child(2)
-  {
-    visibility:hidden;
-    &>li{
-      display:flex;
-      flex-direction:column;
-    /* align-items: flex-end; */
-      &>span{
-        color: #F6B93B;
-        font-size: 1rem;
-        position:relative;
-      }
-    }
-  }
-
   @media screen and (max-device-width: 420px)
   { 
-    width:150px;
+    width:100px;
   }
 `;
 
 const Form = styled.form`
-     width:100%;
-     display:flex;
+    width:100%;
+    display:flex;
     justify-content:center;
     align-items:center; 
-    margin-top:0.8rem;
 
 `;
 
@@ -383,7 +356,7 @@ const Span_size = styled.span`
       /* color:#1B9CFC; */
     }
   } 
-
+  position:relative;
   z-index:2;
   display:flex;
   flex-direction:column;
@@ -407,12 +380,40 @@ const Span_size = styled.span`
 
 const Icon = {
   zIndex: "2",
-  marginRight: "-2.5vh",
-  
+  marginRight: "-2.5vh"
 }
 
+const Log_text = styled.span`
+  position:relative; 
+  top:25vh;
+  height:100%;
+  width:100%;
+  font-size:1rem;
+`;
+const Icon_nav_ul = styled.ul`
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    visibility:hidden;
+    text-align:center;
+    &>li{
+      position:relative;
+      top:0;
+      display:block;
+      flex-direction:column;
+      /*align-items: flex-end; */
+      width:100%;
+      &>span{
+        width:100%;
+        /* color: #F6B93B; */
+        color: red;
+        font-size: 1rem;
+        position:relative;
+        top:130px;
+      }
+    }
 
-
+`;
 function Header(props) {
 
   function ProfileLink() {
@@ -420,7 +421,6 @@ function Header(props) {
       return (
         <>
           <A href={`/${props.routes.profile(props.user.id)}`}>
-            
             <Span_size>
               프로필
             </Span_size>
@@ -432,7 +432,7 @@ function Header(props) {
     } else {
       return (
         <>
-          <span >
+          <span>
             로그인 된 유저가 없습니다.
           </span>
         </>
@@ -456,9 +456,8 @@ function Header(props) {
     if (props.user) {
       return (
         <>
-          <Prifile_img className="header_icon_img" src={props.user.profilePhoto} />
+          {/* <Prifile_img className="header_icon_img" src={props.user.profilePhoto} /> */}
           <A href={routes.logout}>
-            
             <Span_size>
               로그아웃
             </Span_size>
@@ -470,7 +469,6 @@ function Header(props) {
             </Span_size>
           </A>
           <A href={`/${routes.myBookList(props.user.id)}`}>
-            
             <Span_size>
               내 서재
             </Span_size>
@@ -515,7 +513,19 @@ function Header(props) {
           {/* 오리↓*/}
           {/* <Imag_styles src="https://cdn.pixabay.com/photo/2017/02/01/09/57/animal-2029283_960_720.png" /> */}
 
-          <Imag_styles src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKN4UJ5OtVmqJKkhARClcCZO5Btt3rNI5trOE1pHvVbX78g2m-" />
+          {/* <Imag_styles src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKN4UJ5OtVmqJKkhARClcCZO5Btt3rNI5trOE1pHvVbX78g2m-" /> 
+          오리진 이미지(?)
+          */}
+          {/* <Imag_styles src="https://imagescdn.gettyimagesbank.com/500/18/930/672/0/935366800.jpg" /> */}
+          {/* <Imag_styles src="https://image.flaticon.com/icons/svg/64/64882.svg" /> */}
+          {/* <Imag_styles src="https://i.pinimg.com/originals/2c/af/b6/2cafb6f0a0e5a5b68e97d2723c0f8ea7.png" /> */}
+          {/* <Imag_styles src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRW4R9k6Lt0CIUblnwfVnKrDmmRpvFj0t82oNv7kNMznsdoeaGH&usqp=CAU" /> */}
+         
+         
+         
+          <Imag_styles src="https://library.kissclipart.com/20190305/pee/kissclipart-journey-to-the-west-romance-novel-book-c51c5e00eb418a5e.png" />
+          {/* <Imag_styles src="https://cdn.imgbin.com/24/5/11/imgbin-text-symbol-yellow-orange-line-ibook-white-opened-book-illustration-Ff2JE8furMPBnXiEqECbmdA6r.jpg" /> */}
+       
         </a>
 
         <Search_box>
@@ -529,14 +539,14 @@ function Header(props) {
         <Icon_box id="header_icon_box">
 
           <ProfileImage />
-          <ul id="header_icon_ul">
+          <Icon_nav_ul id="header_icon_ul">
             <li>
               <ProfileLink />
             </li>
             <li>
               <CheckLogin />
             </li>
-          </ul>
+          </Icon_nav_ul>
 
         </Icon_box>
 
