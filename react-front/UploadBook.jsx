@@ -20,20 +20,17 @@ const Divs = styled.div`
 
 const Box_img = styled.div`
     position:absolute;
+    top:15%;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    
     box-shadow: -1px 0px 21px 0px rgba(0,0,0,0.75);
     border-radius:10px;
     border: 1px solid red;
-    top:25%;
     padding:3rem;
     background-color:rgba(229, 224, 149, 0.7);
-    align-items:center;
-    justify-content:center;
     z-index:2;
     &:hover{
         animation: box_hover 0.5s linear forwards;
@@ -355,13 +352,17 @@ class uploadBook extends React.Component {
                     <Box_img>
                         {/* {console.log(this.props.routes.addBook)} */}
                         <form autocomplete="off" style={Form} action={this.props.routes.addBook} method="post" enctype="multipart/form-data">
-                            <Input type="text" id="bookTitle" name="bookName" placeholder="책 제목" required="true" />
+                            <Input type="text" style="font-weight=700" id="bookTitle" name="bookName" placeholder="책 제목 <필수>" required="true" />
                             <Ainput type="textarea" id="bookDescription" name="bookDescription" placeholder="책 상세설명" />
-                            <Input type="text" name="author" id="bookAuthor" placeholder="작가 이름" />
+                            <Input type="text" name="author" id="bookAuthor" placeholder="작가 이름 <필수>" required={true} />
+                            <Input type="text" name="price" id="bookPrice" placeholder="가격" />
+                            <Input type="text" name="publisher" id="publisher" placeholder="출판사" />
+                            <Input type="text" name="publishedAt" id="publishedAt" placeholder="출판일" />
+                            <Input type="text" name="buyLink" id="buyLink" placeholder="구매 링크" />
                             <Section>
                                 <UploaderCover>
                                     <label for="bookThumbnail">File Upload</label> 
-                                    <InputFile id="inputFile" id="bookThumbnail" type="file" name="bookImage" accept="image/*" />
+                                    <InputFile id="inputFile" id="bookThumbnail" type="file" name="bookImage" accept="image/*" required={true} />
                                 </UploaderCover>
                                 <GenreSelect id="genres" name="genre" required="true">
                                     <option value="">장르를 선택하세요</option>

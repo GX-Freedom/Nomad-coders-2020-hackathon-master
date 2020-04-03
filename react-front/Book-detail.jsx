@@ -1,6 +1,5 @@
- import React from "react";
+import React from "react";
 import { BaseLayout } from "./globalStyles/layout";
-import Title from "./title";
 import Header from "./globalStyles/Header";
 import GlobalStyle from "./globalStyles/ResetCss";
 import styled, { keyframes } from "styled-components";
@@ -165,7 +164,28 @@ class bookDetail extends React.Component {
                 return totalRate
             }
         }
-        
+        function publishedAt(){
+           if( book.publishedAt)
+           {
+              return "출판일: "+book.publishedAt.split("T")[0]
+           }
+           return "";
+        }
+        function publisher(){
+            if(book.publisher)
+            {
+                return "출판사: "+book.publisher
+            }
+            return "";
+        }
+        function price()
+        {
+            if(book.price)
+            {
+                return "가격: " + book.price+"원";
+            }
+            return "";
+        }
         return (
             <BaseLayout>
             {console.log(this.props.coverColor)}
@@ -178,14 +198,15 @@ class bookDetail extends React.Component {
                                     <img id="coverImg"src={`${book.imageUrl}`} width="100%" height="100%" />
                                 </div>
                                 <BookContent>
-                                    <BookContentP>
+                                    <BookContentP id="book_description">
                                         {book.description}
+                                        <div id="book_page">0</div>
                                     </BookContentP>
                                     <PageController>
 
-                                        <BackPage>{`<`}</BackPage>
+                                        <BackPage id="prev_btn">{`<`}</BackPage>
 
-                                        <NextPage> > </NextPage>
+                                        <NextPage id="next_btn"> > </NextPage>
                                     </PageController>
                                 </BookContent>
                                 <div></div>
@@ -197,9 +218,17 @@ class bookDetail extends React.Component {
                                         <h5>{book.author}</h5>
                                         <h4>{book.likeFigure}명이 서재에 보관 중</h4>
                                         <h3>{translated}</h3>
-                                        <h3> 조회수 {book.viewsFigure}회 </h3>
+                                        <h3> 조회수: {book.viewsFigure}회 </h3>
+                                        <h3>{price()}</h3>
+                                        <h3>{publisher()} </h3>
+                                        <h3>{publishedAt()} </h3>
                                     </BackCoverContent>
-                                        <LogoImage src="/images/orangeBook.png"></LogoImage>
+                                    <a href={book.buyLink} target="_"> 
+                                        <LogoImage src="/images/orangeBook.png">
+                                        </LogoImage>
+                                    <span style={{position:"absolute",right:"28%",
+                                bottom:"19%"}}>Link</span>
+                                    </a> 
                                 </div>
                                 <div ><bdi id="bookSpine1">{book.author}</bdi>
                                 <bdi id="bookSpine2">{book.title}</bdi></div>
@@ -233,7 +262,6 @@ class bookDetail extends React.Component {
                                         }
                                         starPoint();
                                         return (
-                                            
                                             <Comment>
                                                 <Avatar>
                                                 <img src={item.creatorPhoto} width="50vh" />
@@ -282,12 +310,12 @@ const PageController = styled.div`
     width:100%;
     display:flex;
     position:absolute;
-    bottom:-22px;
+    bottom:-23px;
     box-sizing: border-box;
-
 `
 
 const NextPage = styled.button`
+    outline:none;
     cursor:pointer;
     overflow: hidden;
     transition: all 0.3s;
@@ -331,7 +359,7 @@ const NextPage = styled.button`
 `;
 
 const BackPage = styled.button`
-  
+    outline:none;
     cursor:pointer;
     overflow: hidden;
     transition: all 0.3s;
@@ -376,11 +404,19 @@ const BackPage = styled.button`
 `
 
 const BookContent = styled.section`
-
+    margin:0;
+    &>div{
+        display:flex;
+        text-align:center;
+        justify-content:center;
+    }
+    /* overflow:hidden;
+    text-overflow:hidden; */
 `
 
 const BookContentP  = styled.p`
-    margin:0;
+    font-weight:600;
+   
 `
 
 const LogoImage = styled.img`
@@ -394,11 +430,11 @@ const LogoImage = styled.img`
 `;
 
 const BackCoverContent = styled.span`
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-height:40%;
-`
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:40%;
+`;
 
 const Avatar = styled.section`
     display:flex;
@@ -479,7 +515,6 @@ const Book = styled.section`
         position: absolute;
         width: 25vw;
         height: 70vh;
-        
         border-left:0;
         text-overflow:hidden;
         background-color: ${props => props.coverColor ? props.coverColor : "black"};
@@ -506,19 +541,26 @@ const Book = styled.section`
 
     section:nth-child(2){
         justify-content:center;
-        margin-top:1vw;
-        margin-left:0.2vw;
+        margin-top:10px;
+        margin-left:5px;
         position: absolute;
         width: 23vw;
-        height: 66vh;
+        height: 64vh;
         background-color:white;
         text-overflow:hidden;
         z-index:-1;
         border-left:solid 2px black;
+        text-overflow:hidden;
+        /* overflow:hidden;  */
+        
         p:nth-child(1){
-            margin: 3vw;
+            /* margin: 2vw; */
+            margin: 40px 50px 40px 50px;
         }
-            
+        div:nth-child(2)
+        {
+            z-index:10;
+        }   
         @media screen and (max-width: 1200px){
             width: 30vw;
         }
@@ -786,7 +828,7 @@ const Comments = styled.ul`
     overflow-x: hidden;
     width: 100%;
     height:100%;
-    background-color:#B3E7FF;
+    background-color:#E7E3DC;
     background-size: cover;
     background-position: center center;
     display: flex;
