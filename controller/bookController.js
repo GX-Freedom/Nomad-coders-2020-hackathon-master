@@ -6,6 +6,7 @@ import akin from "@asymmetrik/akin";
 import ColorThief from "colorthief";
 import fs from "fs";
 import copyFile from "fs-copy-file";
+import aws from "aws-sdk"
 
 
 export const getAddBook = (req, res) => {
@@ -15,7 +16,7 @@ export const getAddBook = (req, res) => {
 
 export const postAddBook = async(req, res) => {
     const {
-        body: {bookName, bookDescription, author, genre}, file:{location}
+        body: {bookName, bookDescription, author, genre, price, publisher, buyLink, publishedAt}, file:{location}
     } = req;
     if(genre == ""){
         res.render(routes.addBook, {msg:"장르를 선택하세요!"})
@@ -27,9 +28,13 @@ export const postAddBook = async(req, res) => {
         description:bookDescription,
         imageUrl:location,
         enrolledBy: req.user.id,
-        genre
+        genre,
+        price,
+        publisher,
+        buyLink,
+        publishedAt
     })
-    console.log(newBook.genre)
+    console.log(newBook)
     const currentUser = req.user;
     currentUser.uploadedBooks.push(newBook.id);
     currentUser.save();
@@ -64,8 +69,48 @@ export const bookDetail = async(req, res) => {
         booksFigure += 1;
         }
     })
+    console.log(book.imageUrl.slice(-32))
     /*
-    const pickedColor = ColorThief.getColor(`${book.imageUrl}.jpeg`,3)
+    const s3 = new aws.S3({
+        accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  region: "ap-northeast-2"
+    });
+    */
+    const filePath = 'images/virtualImg.jpeg';
+    const bucketName = '2020nomadhackathon';
+    const key = `book/${book.imageUrl.slice(-32)}`;
+    /*
+    const downloadFile = (filePath, bucketName, key) => {
+        const params = {
+            Bucket: bucketName,
+            Key: key
+        };
+        s3.getObject(params, (err, data) => {
+            if (err) console.error(err);
+            
+            fs.writeFileSync(filePath, data.Body.toString());
+            console.log(`${filePath} has been created!`);
+          });
+    }
+
+    downloadFile(filePath, bucketName, key);*/
+
+    const s3 =  new aws.S3({
+        accessKeyId: process.env.AWS_KEY,
+        secretAccessKey: process.env.AWS_PRIVATE_KEY,
+        region: "ap-northeast-2",
+        apiVersion: '2006-03-01'});
+
+
+        
+    const params =  {Bucket: bucketName, Key: key};
+    const file = fs.createWriteStream(filePath);
+    
+        s3.getObject(params).createReadStream().pipe(file)
+    console.log(book)
+    console.log(filePath)
+    const pickedColor = ColorThief.getColor('images/virtualImg.jpg',3)
             .then(color => {return color})
             .catch(err => {console.log(err)})
     
@@ -81,10 +126,10 @@ export const bookDetail = async(req, res) => {
         return hex.length === 1 ? '0' + hex : hex
       }).join('')
       const coverColor = rgbToHex(R,G,B);
-    //await fs.renameSync(`${book.imageUrl}.jpeg`,book.imageUrl);
-*/
+    //fs.unlinkSync("images/virtualImg.jpeg");
+    
     const totalRate = (rateFigure/booksFigure).toPrecision(2);
-        res.render("book-detail" , {book, totalRate, /*coverColor*/ pageTitle:book.title});
+        res.render("book-detail" , {book, totalRate, coverColor, pageTitle:book.title});
     }catch(err){
         console.log(err);
         res.render("404",{pageTitle:"Can Not Found"});

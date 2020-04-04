@@ -15,6 +15,8 @@ const commentList = document.getElementById("commentList");
 const prev_btn = document.getElementById("prev_btn");
 const next_btn = document.getElementById("next_btn");
 const book_page = document.getElementById("book_page");
+const editBtn = document.getElementById("editBtn");
+const editContent = document.getElementById("editContent");
 
 
 
@@ -120,7 +122,7 @@ async function postReviewApi(e){
 
     if(reviewContent.value.length > 150 || reviewContent.value.length == 0)
     {
-        alert("글자수 제한 최소 0부터 최대 150자까지 됩니다.")
+        alert("글자수 제한 최소 1부터 최대 150자까지 됩니다.")
         return ;
     }
     await axios({
@@ -186,15 +188,17 @@ width:25vw;
 */
 let origin_description = "";
 
+
+
 function book_description_length() {
     // console.log(book_description.innerHTML.length);
     let arr =[];
-    if(book_description.innerHTML.length > 300)
+    if(book_description.innerHTML.length > 350)
     {
-        let description = book_description.innerHTML.substring(0, 300);
+        let description = book_description.innerHTML.substring(0, 350);
         book_description.innerHTML = description;
     }
-    arr = new Array(parseInt(origin_description.length / 300));
+    arr = new Array(parseInt(origin_description.length / 350));
 
     book_page.innerHTML =` 0 / ${arr.length}`;
 }
@@ -203,19 +207,19 @@ const nextPage = async ()=>{
     // console.log(origin_description)
     let arr=[];
     
-    if(origin_description.length / 300 == parseInt(origin_description.length / 300))
+    if(origin_description.length / 350 == parseInt(origin_description.length / 350))
     {
-        arr = new Array(parseInt(origin_description.length / 300));
+        arr = new Array(parseInt(origin_description.length / 350));
     }
     else
     {
-        arr = new Array(parseInt(origin_description.length / 300)+1);
+        arr = new Array(parseInt(origin_description.length / 350)+1);
     }
 
     for(i = 0; i < arr.length; i++)
     {
         
-        arr[i] = await origin_description.substring(i == 0 ?  0 :  (i == 1 ? 300 : (i * 300 )), i == 0 ? 300 : (i + 1) * 300);
+        arr[i] = await origin_description.substring(i == 0 ?  0 :  (i == 1 ? 350 : (i * 350 )), i == 0 ? 350 : (i + 1) * 350);
     }
 
     // console.log(arr);
@@ -239,7 +243,7 @@ const nextPage = async ()=>{
     }
 
     // book_description.innerHTML = arr[1]
-    // let description = origin_description.substring(300, 600);
+    // let description = origin_description.substring(350, 600);
     // book_description.innerHTML = description;
 
 }
@@ -247,18 +251,18 @@ const nextPage = async ()=>{
 const prevPage = async()=>{
     let arr=[];
     
-    if(origin_description.length / 300 == parseInt(origin_description.length / 300))
+    if(origin_description.length / 350 == parseInt(origin_description.length / 350))
     {
-        arr = new Array(parseInt(origin_description.length / 300));
+        arr = new Array(parseInt(origin_description.length / 350));
     }
     else
     {
-        arr = new Array(parseInt(origin_description.length / 300)+1);
+        arr = new Array(parseInt(origin_description.length / 350)+1);
     }
 
     for(i = 0; i < arr.length; i++)
     {
-        arr[i] = await origin_description.substring(i == 0 ?  0 :  (i == 1 ? 300 : (i * 300 )), i == 0 ? 300 : (i + 1) * 300);
+        arr[i] = await origin_description.substring(i == 0 ?  0 :  (i == 1 ? 350 : (i * 350 )), i == 0 ? 350 : (i + 1) * 350);
     }
 
     for(i = 0; i < arr.length; i++)
@@ -274,9 +278,25 @@ const prevPage = async()=>{
             return book_description.innerHTML = arr[i-1];
         }
     }
-    // let description = origin_description.substring(0, 300);
+    // let description = origin_description.substring(0, 350);
     // book_description.innerHTML = description;
 }
+function handleEditBtn(){
+
+    editContent.style.display = "flex";    
+    editBtn.removeEventListener("click", handleEditBtn);
+    editBtn.addEventListener("click", function a(){
+        editContent.style.display = "none";
+        editBtn.addEventListener("click", handleEditBtn);
+        
+    })
+            window.scrollTo(0,{  
+                top:200,
+                behavior: "smooth"
+              });
+
+}
+
 
 async function bookInit(){
     const book_description =await document.getElementById("book_description");
@@ -293,6 +313,7 @@ async function bookInit(){
     book_description_length();
     next_btn.addEventListener("click", nextPage);
     prev_btn.addEventListener("click", prevPage);
+    editBtn.addEventListener("click", handleEditBtn);
 }
 
 bookInit();

@@ -5,11 +5,14 @@ import GlobalStyle from "./globalStyles/ResetCss";
 import styled, { keyframes } from "styled-components";
 
 const Check_user_div = styled.div`
-    display:flex;
+    display:none;
     flex-direction:column;
     height:100%;
     width:100%;
     margin: 0.3rem;
+    background-color:#E7E3DC;
+    justify-content: center;
+    align-items: center;
 
     &>form{
         width:500px; 
@@ -20,6 +23,18 @@ const Check_user_div = styled.div`
         &>input{
             margin-top:0.3rem;
             float:left;
+            resize:none;
+            margin-top:0.3rem;
+            border: solid orange 1px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            border-radius:10px;
+            overflow:hidden;
+            outline: none;
+            color:orange;
+            font-weight:700;
         }
 
         &>textarea{
@@ -27,6 +42,17 @@ const Check_user_div = styled.div`
             height:200px; 
             resize:none;
             margin-top:0.3rem;
+            border: solid orange 1px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            border-radius:10px;
+            overflow:hidden;
+            outline: none;
+            color:;
+            font-weight:700;
+
         }
 
         input[type=submit]
@@ -65,6 +91,104 @@ const Self_position  = styled.input`
     margin-left: 3rem;
 `;
 
+const Submit = styled.div`
+    display:flex;
+    justify-content:space-around;
+    width:100%;
+`;
+
+const EditBtn = styled.button`
+    border-radius: 4px;
+    font-size:1rem;
+    background-color: #F6BF4C;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    transition: all 0.5s;
+    margin-left:30px;
+    cursor: pointer;
+    
+    &:hover{
+        background-color: #FFFFFF;
+        color: #F6BF4C;
+    }
+`;
+
+const PutToBookmark = styled.div`
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    width:100%;
+    margin: 0.3rem;
+    background-color:#E7E3DC;
+
+    &>form{
+        width:500px; 
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+
+        &>input{
+            margin-top:0.3rem;
+            float:left;
+            resize:none;
+            margin-top:0.3rem;
+            border: solid orange 1px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            border-radius:10px;
+            overflow:hidden;
+            outline: none;
+            color:orange;
+            font-weight:700;
+        }
+
+        &>textarea{
+            width:500px; 
+            height:200px; 
+            resize:none;
+            margin-top:0.3rem;
+            border: solid orange 1px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            border-radius:10px;
+            overflow:hidden;
+            outline: none;
+            font-weight:700;
+
+        }
+
+        input[type=submit]
+        {
+            width:150px;
+            font-size:1rem;
+        }
+
+        &>input:last-child{
+            border-radius: 4px;
+            background-color: #F6BF4C;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            transition: all 0.5s;
+            cursor: pointer;
+            &:hover{
+                background-color: #FFFFFF;
+                color: #F6BF4C;
+            }
+        }
+       
+    }
+    @media screen and (max-device-width: 420px)
+    {
+        font-size:1.5rem;
+    }
+`;
+
 class bookDetail extends React.Component {
 
     render() {
@@ -76,7 +200,9 @@ class bookDetail extends React.Component {
 
             if (user && user.id == book.enrolledBy[0]._id) {
                 return (
-                    <Check_user_div>
+                    <>
+                    <EditBtn id="editBtn">책 정보 수정</EditBtn>
+                    <Check_user_div id="editContent">
                         <form action={routes.editBook(book.id)} method="post">
                             <input type="text" name="title" placeholder="수정할 이름" value={book.title} />
                             <textarea name="description" placeholder="상세내용" value={book.description} />
@@ -87,16 +213,17 @@ class bookDetail extends React.Component {
                             <input type="submit" value="책 삭제" />
                         </form>
                     </Check_user_div>
+                    </>
                 )
 
             } else if (user) {
                 
                 return (
-                    <Check_user_div>
+                    <PutToBookmark>
                         <form action={`/${routes.myBookList(book.id)}`} method="post">
                             <Self_position type="submit" value="내 서재에 놓기" />
                         </form>
-                    </Check_user_div>
+                    </PutToBookmark>
                 )
             }
 
@@ -112,8 +239,10 @@ class bookDetail extends React.Component {
                         <input type="text" id="yourName" name={user.username} style={{display:"none"}}/>
                         <input type="text" id="profileUrl" name={user.profilePhoto} style={{display:"none"}}/>
                         <InputReview type="textarea" autoComplete="off" name="reviewContent" id="reviewContent" placeholder="책에 대한 평가를 남겨주세요!(150자 제한)"  rows="1" />
-                        <InputRate type="number" name="rate" placeholder="평점을 남겨주세요" id="reviewRate" min={0} max={10} value={0} step={.1} />
+                
+                        <InputRate type="number" name="rate" placeholder="평점" id="reviewRate" min={0} max={10} value={"평점"} step={.1} />
                         <ReviewSubmit id="postReviewBtn" type="submit" value="등록" />
+                        
                     </form>
                 )
             }
@@ -188,9 +317,10 @@ class bookDetail extends React.Component {
         }
         return (
             <BaseLayout>
-            {console.log(this.props.coverColor)}
+            {/* {console.log(this.props.coverColor)} */}
                 <GlobalStyle />
                 {Header(this.props)}
+                <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Open+Sans&display=swap" rel="stylesheet"/>
                     <BookInfos>
                         <Middle>
                             <Book id="book" coverColor={this.props.coverColor}>
@@ -203,9 +333,7 @@ class bookDetail extends React.Component {
                                         <div id="book_page">0</div>
                                     </BookContentP>
                                     <PageController>
-
                                         <BackPage id="prev_btn">{`<`}</BackPage>
-
                                         <NextPage id="next_btn"> > </NextPage>
                                     </PageController>
                                 </BookContent>
@@ -217,7 +345,7 @@ class bookDetail extends React.Component {
                                         <h3>{totalStar} ({handleNaN(this.props.totalRate)} / 10)</h3>
                                         <h5>{book.author}</h5>
                                         <h4>{book.likeFigure}명이 서재에 보관 중</h4>
-                                        <h3>{translated}</h3>
+                                        <h3> 등록일: {translated}</h3>
                                         <h3> 조회수: {book.viewsFigure}회 </h3>
                                         <h3>{price()}</h3>
                                         <h3>{publisher()} </h3>
@@ -415,9 +543,10 @@ const BookContent = styled.section`
 `
 
 const BookContentP  = styled.p`
+    font-family: 'Gaegu', cursive;
     font-weight:600;
-   
-`
+    line-height:1.5;
+`;
 
 const LogoImage = styled.img`
   width:8rem;
@@ -434,6 +563,15 @@ const BackCoverContent = styled.span`
     flex-direction:column;
     justify-content:space-between;
     height:60%;
+    font-size:1rem;
+
+    @media scrren and (max-device-width: 420px)
+    {
+        &>*{
+            font-size:2rem;
+        }
+    }
+  
 `;
 
 const Avatar = styled.section`
@@ -555,8 +693,10 @@ const Book = styled.section`
         
         p:nth-child(1){
             /* margin: 2vw; */
-            margin: 40px 50px 40px 50px;
+            margin: 40px 50px 0px 50px;
+            
         }
+        
         div:nth-child(2)
         {
             z-index:10;
@@ -572,7 +712,7 @@ const Book = styled.section`
         @media screen and (max-device-width: 420px) 
         {
             width: 500px;
-            height: 700px
+            height: 650px
         }
     }
 
@@ -583,7 +723,7 @@ const Book = styled.section`
         height: 70vh;
    
         background-color: ${props => props.coverColor ? props.coverColor : "black"};
-        font-size: 2vh;
+        /* font-size: 2vh; */
         display:flex;
         background-size: cover;
         text-overflow:hidden;
@@ -935,16 +1075,21 @@ const Comment = styled.div`
 `;
 
 const InputReview = styled.textarea`
-    border: solid 2px black;
+    margin-top:10px;
+    border: solid orange 1px;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
     width: 20vw;
     height:3.5vh;
-    border-radius:15px;
+    border-radius:10px;
     resize:none;
     overflow:hidden;
+    outline: none;
+    
+    color:orange;
+    font-weight:700;
     :focus{        
         animation: focus 0.5s;
         animation-fill-mode:forwards;
@@ -956,9 +1101,12 @@ const InputReview = styled.textarea`
     @keyframes focus {
         0%{
             height:0vh;
+            box-shadow: 0;
         }
         100%{
             height:20vh;
+            box-shadow: 2px 2px 10px;
+            border: none;
         }
     }
 
@@ -976,8 +1124,10 @@ const InputReview = styled.textarea`
     }
 `
 const InputRate = styled.input`
-    border: solid 2px black;
+    border: solid 1px orange;
     text-align:center;
+    border-radius: 10px;
+    outline: none;
 `
 const ReviewSubmit = styled.input`
     text-align:center;
@@ -985,7 +1135,7 @@ const ReviewSubmit = styled.input`
     margin: 1rem auto;
     padding:2px;
     border-radius:5px;
-    
+    margin-left: 60px;
     background:#F6BD47;
     color:#fff;
     border:none;

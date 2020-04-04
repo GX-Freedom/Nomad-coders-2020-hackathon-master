@@ -99,9 +99,20 @@ const A = styled.a`
         }
     }
     /* background-color: white; */
-    @media screen and (max-width: 600px)
+    @media screen and (max-width: 1250px)
     {
-        margin:1vh;
+        width:90%;
+    }
+
+    @media screen and (max-width: 950px)
+    {
+        width:100%;
+    }
+
+    @media screen and (max-device-width: 600px)
+    {
+        width:100%;
+        margin:10px;
     }
 `;
 
@@ -114,10 +125,12 @@ const H_one = styled.h1`
     text-align:center;
     top:100px;
 
-    box-shadow: 0px 3.5px 5px 3.5px #F7BC43;
+    color: white;
+    background-color: rgba(0,0,0,0.4);
     @media screen and (max-width: 400px)
     {
         font-size:1rem;
+        font-weight:700;
     }
 `;
 
@@ -159,6 +172,12 @@ const TextArea = styled.section`
     width:70%;
     margin-left:15px;
     margin-right:15px;
+
+    @media screen and (max-width: 950px)
+    {
+        width:50%;
+    }
+
 `;
 
 const Description = styled.span`
@@ -200,19 +219,22 @@ const Grid_items = styled.div`
 `;
 
 const BookTitle = styled.span`
-text-overflow:ellipsis;
+    text-overflow:ellipsis;
     font-size:5vh;
     color:white;
     font-weight: 700;
     width:70%;
     display:flex;
     justify-content:flex-start;
+    
     @media screen and (max-width: 1300px)
     { 
         
     }
+    
     @media screen and (max-device-width: 600px)
     {
+        width:100%;
         font-size: 3vh;
     }
 ` 
@@ -224,7 +246,11 @@ const Bookinfo = styled.div`
     
     padding:5px;
     color:white;
-    
+    @media screen and (max-width: 950px)
+    { 
+        width:30%;
+    }
+
 
 `;
 const Publisher = styled.span`
@@ -253,6 +279,10 @@ const Bookmark = styled.span`
     }
 `;
 
+const SearchingBy = styled.span`
+color:orange;
+`
+
 class search extends React.Component {
     render() {
         const results = this.props.results;
@@ -265,7 +295,7 @@ class search extends React.Component {
                 return (
                     <>
                         <H_one >
-                            "<span id="sreach_value">{searchingBy}</span>" 검색 결과
+                            <SearchingBy id="sreach_value">{searchingBy}</SearchingBy> 검색 결과
                         </H_one>
                         
                     </>
@@ -274,7 +304,7 @@ class search extends React.Component {
                 return (
                     <>
                         <H_one color="red">
-                        <span id="sreach_value">검색결과가 없습니다.</span>
+                        <SearchingBy id="sreach_value">검색결과가 없습니다.</SearchingBy>
                         </H_one>
                     </>
                 )

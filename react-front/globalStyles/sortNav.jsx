@@ -6,14 +6,14 @@ const SlideContainer = styled.section`
 `;
 
 const GenreSort = styled.nav`
+    position:fixed;
     background-color:rgba(0,0,0,0.3);
     width: 10rem;
-    heigt:100%;
+    height:100%;
     z-index: 100;
-    position:fixed;
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content:flex-start;
     align-items:center;
     display:none;
     color: white;
