@@ -36,6 +36,7 @@ export const upload = multer({storage: multerS3({
   acl: "public-read",
   bucket: "2020nomadhackathon/book"
 })})
+
 export const avatarUpload = multer({ storage: multerS3({
   s3,
   acl: "public-read",
