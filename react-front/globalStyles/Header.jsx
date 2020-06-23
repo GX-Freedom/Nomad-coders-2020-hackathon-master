@@ -283,14 +283,15 @@ const Binput = styled.input`
 
 `;
 
-const Prifile_img = styled.img`
+const Profile_img = styled.img`
   width:50px;
   height:45px;
-  position:absolute;
-  right:0;
+  position: relative;
+  right:13px;
   top:0;
   border-radius:100%;
   cursor:pointer;
+  z-index: 2;
 `; 
  
 const Icon_box = styled.div`
@@ -311,10 +312,7 @@ const Icon_box = styled.div`
     color:#F6B93B;
   }
 
-  @media screen and (max-device-width: 420px)
-  { 
-    width:100px;
-  }
+  
 `;
 
 const Form = styled.form`
@@ -387,65 +385,131 @@ const Log_text = styled.span`
   font-size:1rem;
 `;
 const Icon_nav_ul = styled.ul`
-    display:flex;
-    width:100%;
-    visibility:hidden;
-    height:100%;
-
-    &>li{
-      width:100%;
-      flex:1;
-      &>span{
-        display:flex;
-        justify-content:center;
-        position:relative;
-        color: red;
-        font-size: 1rem;
-        position:relative;
-        top:130px;
-        @media screen and (max-device-width: 420px)
-        {
-          justify-content:flex-end;
-          font-size: 1.55rem;
-        }
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 25px 0 #aaa4a4;
+    width: 200px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    top: 20px;
+    border: solid 1px black; 
+    font-size: 18px;
+    @keyframes showPopUp{
+      from{
+        opacity: 0;
+        
+      }
+      to{
+        opacity: 1;
+  
       }
     }
+    @keyframes hidePopUp{
+      from{
+        opacity: 1;
+      }
+      to{
+        opacity: 0;
+      }
+    }
+    @media screen and (max-device-width: 450px){
+      height: 300px;
+    }
+`;
+
+const LinkInLogout = styled.a`
+  color:black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 45%;
+  font-size: 20px;
+`;
+
+const LinkInLogout_text = styled.span`
+  color:black;
+  margin-left: 10px;
+  font-weight: 700;
+`
+const LinkInLogoutBox = styled.div`
+  background-color: rgba(252, 168, 63, 0.5);
+  height:100%;
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 40px white;
+`;
+
+const MenuLink = styled.a`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: black;
+  :hover{
+    background-color: skyblue;
+    
+  }
 
 `;
-function Header(props) {
 
+const MenuNav = styled.nav`
+  width: 100%;
+  position: relative;
+  left: 10px;
+`
+
+function Header(props) {
   function ProfileLink() {
     if (props.user) {
       return (
         <>
-          <A href={`/${props.routes.profile(props.user.id)}`}>
-            <Span_size>
-              프로필
-            </Span_size>
-            {/* <Prifile_img className="header_icon_img" src={props.user.profilePhoto} /> */}
-          </A>
+          <MenuLink  href={`/${props.routes.profile(props.user.id)}`}>
+            <MenuNav >
+              😎 프로필
+            </MenuNav>
+          </MenuLink>
         </>
 
       )
-    } else {
-      return (
-        <>
-          <span>
-            로그인 된 유저가 없습니다.
-          </span>
-        </>
-      )
+    } else{
+        return(
+          <>
+          </>
+        )
     }
   }
   function ProfileImage() {
     if (props.user) {
       return (
-        <Prifile_img src={props.user.profilePhoto} />
+        <Profile_img id="header_icon_box" src={props.user.profilePhoto} />
       )
     }
     else {
       return (
-        <i style={{ cursor: "pointer", color: "black" }} className="fas fa-bars fa-3x" id="header_icon_bars"></i>
+      <>
+        <LinkInLogoutBox>
+          <LinkInLogout href={routes.login}>
+            <i className="fas fa-key"></i>
+            <LinkInLogout_text>
+              Login
+            </LinkInLogout_text>
+          </LinkInLogout>
+          <LinkInLogout href={routes.join}>
+            <i class="fas fa-sign-in-alt"></i>
+            <LinkInLogout_text>
+              Join
+            </LinkInLogout_text>
+          </LinkInLogout>
+        </LinkInLogoutBox>
+      </>
+       
       )
     }
   }
@@ -455,38 +519,26 @@ function Header(props) {
       return (
         <>
           {/* <Prifile_img className="header_icon_img" src={props.user.profilePhoto} /> */}
-          <A href={routes.logout}>
-            <Span_size>
-              로그아웃
-            </Span_size>
-          </A>
-          <A href={routes.addBook}>
+          <MenuLink href={routes.logout}>
+            <MenuNav>
+              🔑 Logout
+            </MenuNav>
+          </MenuLink>
+          <MenuLink href={routes.addBook}>
             
-            <Span_size>
-              새로운 책 등록
-            </Span_size>
-          </A>
-          <A href={`/${routes.myBookList(props.user.id)}`}>
-            <Span_size>
-              내 서재
-            </Span_size>
-          </A>
+            <MenuNav>
+              📔 새로운 책 등록
+            </MenuNav>
+          </MenuLink>
+          <MenuLink href={`/${routes.myBookList(props.user.id)}`}>
+            <MenuNav>
+              📚 내 서재
+            </MenuNav>
+          </MenuLink>
         </>)
-    } else {
-      return (
+    }else{
+      return(
         <>
-          <A href={routes.login}>
-            <i className="fas fa-key fa-2x"></i>
-            <Span_size>
-              로그인
-            </Span_size>
-          </A>
-          <A href={routes.join}>
-            <i class="fas fa-sign-in-alt fa-2x"></i>
-            <Span_size>
-              가입
-            </Span_size>
-          </A>
         </>
       )
     }
@@ -495,6 +547,7 @@ function Header(props) {
   return (
     <BaseLayout>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+      <script defer src="/vanilla/header.js"></script>
      
       <GlobalStyle />
       <Div className="class_name_header" >
@@ -527,22 +580,18 @@ function Header(props) {
           </Form>
         </Search_box>
 
-        <Icon_box id="header_icon_box">
-
           <ProfileImage />
+        <Icon_box >
+
+
           <Icon_nav_ul id="header_icon_ul">
-            <li>
               <ProfileLink />
-            </li>
-            <li>
               <CheckLogin />
-            </li>
           </Icon_nav_ul>
 
         </Icon_box>
 
       </Div>
-      <script src="/vanilla/header.js"></script>
     </BaseLayout>
 
   );
